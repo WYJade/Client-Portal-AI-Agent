@@ -190,16 +190,12 @@ export default function AgentChatLayout({
 
           {/* Chat Content Area */}
           <div className="px-6 py-6">
-            {/* Welcome Card */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
-              <div className="bg-gradient-to-r from-purple-500 to-indigo-500 px-6 py-4">
-                <h2 className="text-lg font-semibold text-white">
-                  Hi, I'm your {agentName}
-                </h2>
-              </div>
-              <div className="px-6 py-4">
-                <p className="text-gray-600 leading-relaxed text-sm">{welcomeMessage}</p>
-              </div>
+            {/* Welcome Message - Simple and friendly */}
+            <div className="mb-6">
+              <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                Hi, I'm your {agentName}
+              </h2>
+              <p className="text-gray-500 leading-relaxed">{welcomeMessage}</p>
             </div>
 
             {/* Quick Actions Grid - only shown when no messages */}
