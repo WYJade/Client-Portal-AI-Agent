@@ -163,8 +163,7 @@ export default function ExceptionHandlerPage() {
   const statsPanel = (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900">Exception Management</h3>
-        <span className="text-xs text-gray-500">Real-time monitoring</span>
+        <h3 className="text-lg font-semibold text-gray-100">Exception Management</h3>
       </div>
       <div className="grid grid-cols-4 gap-4">
         <StatCard

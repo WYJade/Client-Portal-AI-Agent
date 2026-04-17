@@ -125,8 +125,7 @@ export default function DispatchCoordinatorPage() {
   const statsPanel = (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900">Dispatch Control Center</h3>
-        <span className="text-xs text-gray-500">Live tracking</span>
+        <h3 className="text-lg font-semibold text-gray-100">Dispatch Control Center</h3>
       </div>
       <div className="grid grid-cols-4 gap-4">
         <StatCard

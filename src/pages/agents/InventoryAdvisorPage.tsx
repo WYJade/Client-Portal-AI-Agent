@@ -150,8 +150,7 @@ export default function InventoryAdvisorPage() {
   const statsPanel = (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900">Inventory Intelligence</h3>
-        <span className="text-xs text-gray-500">Real-time analysis</span>
+        <h3 className="text-lg font-semibold text-gray-100">Inventory Intelligence</h3>
       </div>
       <div className="grid grid-cols-4 gap-4">
         <StatCard

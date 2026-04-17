@@ -121,8 +121,7 @@ export default function WarehouseOperatorPage() {
   const statsPanel = (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900">Warehouse Operations</h3>
-        <span className="text-xs text-gray-500">Distribution Center - East</span>
+        <h3 className="text-lg font-semibold text-gray-100">Warehouse Operations</h3>
       </div>
       <div className="grid grid-cols-4 gap-4">
         <StatCard
