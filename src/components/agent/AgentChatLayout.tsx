@@ -40,7 +40,6 @@ const exportToCSV = (data: any[], filename: string) => {
     headers.join(','),
     ...data.map(row => headers.map(header => {
       const value = row[header]
-      // Handle values that might contain commas or quotes
       if (typeof value === 'string' && (value.includes(',') || value.includes('"'))) {
         return `"${value.replace(/"/g, '""')}"`
       }
@@ -77,7 +76,6 @@ const exportToXLS = (data: any[], filename: string) => {
   const workbook = XLSX.utils.book_new()
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Data')
   
-  // Auto-size columns
   const headers = Object.keys(data[0])
   const colWidths = headers.map(header => {
     const maxLength = Math.max(
@@ -112,7 +110,7 @@ export default function AgentChatLayout({
   const exportMenuRef = useRef<HTMLDivElement>(null)
   const prevMessagesLengthRef = useRef(messages.length)
 
-  // Only scroll to bottom when a new message is added, not on page load
+  // Only scroll to bottom when a new message is added
   useEffect(() => {
     if (messages.length > prevMessagesLengthRef.current) {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -120,7 +118,7 @@ export default function AgentChatLayout({
     prevMessagesLengthRef.current = messages.length
   }, [messages])
 
-  // Reset scroll to top when switching agents (messages become empty)
+  // Reset scroll to top when switching agents
   useEffect(() => {
     if (messages.length === 0 && scrollContainerRef.current) {
       scrollContainerRef.current.scrollTop = 0
@@ -174,155 +172,164 @@ export default function AgentChatLayout({
   }
 
   return (
-    <div className="h-full flex">
-      {/* Main Chat Area */}
-      <div className={`flex-1 flex flex-col transition-all duration-300 ${chartPanel ? 'mr-0' : ''}`}>
-        {/* Scrollable Content Area - Stats, Welcome, Quick Actions, Messages all scroll together */}
+    <div className="h-full flex bg-gray-50/50">
+      {/* Main Content Area */}
+      <div className={`flex-1 flex flex-col min-w-0 transition-all duration-300`}>
+        {/* Scrollable Content */}
         <div 
           ref={scrollContainerRef}
           className="flex-1 overflow-y-auto"
-          style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(0,0,0,0.1) transparent' }}
+          style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(0,0,0,0.08) transparent' }}
         >
-          {/* Stats Panel */}
-          <div className="p-6 border-b border-gray-100">
-            {statsPanel}
+          {/* Stats Panel - Full width with subtle background */}
+          <div className="bg-white border-b border-gray-100">
+            <div className="px-6 py-5">
+              {statsPanel}
+            </div>
           </div>
 
-          {/* Chat Content */}
-          <div className="p-6 space-y-4">
-            {/* Welcome Message - always shown */}
-            <div className="max-w-3xl mx-auto">
-              <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">
+          {/* Chat Content Area */}
+          <div className="px-6 py-6">
+            {/* Welcome Card */}
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
+              <div className="bg-gradient-to-r from-purple-500 to-indigo-500 px-6 py-4">
+                <h2 className="text-lg font-semibold text-white">
                   Hi, I'm your {agentName}
                 </h2>
-                <p className="text-gray-600 leading-relaxed">{welcomeMessage}</p>
               </div>
-
-              {/* Quick Actions - only shown when no messages */}
-              {messages.length === 0 && (
-                <div className="grid grid-cols-2 gap-3 mt-6">
-                  {quickActions.map((action, index) => (
-                    <button
-                      key={index}
-                      onClick={() => onSendMessage(action.action)}
-                      className="p-4 text-left bg-white border border-gray-200 rounded-xl hover:border-purple-300 hover:shadow-sm transition-all group"
-                    >
-                      <span className="text-sm text-gray-700 group-hover:text-purple-700">
-                        {action.label}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              )}
+              <div className="px-6 py-4">
+                <p className="text-gray-600 leading-relaxed text-sm">{welcomeMessage}</p>
+              </div>
             </div>
 
-            {/* Messages */}
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div
-                  className={`max-w-2xl rounded-2xl px-4 py-3 ${
-                    message.type === 'user'
-                      ? 'bg-purple-600 text-white'
-                      : 'bg-white border border-gray-200 text-gray-800'
-                  }`}
-                >
-                  <div className="whitespace-pre-wrap">{message.content}</div>
-                  {message.chart && (
-                    <div className="mt-4 p-4 bg-gray-50 rounded-xl">
-                      {message.chart}
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-            <div ref={messagesEndRef} />
-          </div>
-        </div>
-
-        {/* Input Area - Fixed at bottom */}
-        <div className="p-4 border-t border-gray-100 bg-white shrink-0">
-          <div className="max-w-3xl mx-auto">
-            {/* Quick Action Pills - shown when there are messages */}
-            {messages.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-3">
-                {quickActions.slice(0, 3).map((action, index) => (
+            {/* Quick Actions Grid - only shown when no messages */}
+            {messages.length === 0 && (
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+                {quickActions.map((action, index) => (
                   <button
                     key={index}
                     onClick={() => onSendMessage(action.action)}
-                    className="px-3 py-1.5 text-xs text-gray-600 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
+                    className="p-4 text-left bg-white border border-gray-200 rounded-xl hover:border-purple-300 hover:bg-purple-50/50 hover:shadow-sm transition-all group"
                   >
-                    {action.label}
+                    <span className="text-sm text-gray-700 group-hover:text-purple-700 line-clamp-2">
+                      {action.label}
+                    </span>
                   </button>
                 ))}
               </div>
             )}
-            
-            <div className="relative flex items-center">
-              <input
-                type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder={`Ask ${agentName} anything...`}
-                className="w-full px-4 py-3 pr-12 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
-              />
-              <button
-                onClick={handleSend}
-                disabled={!inputValue.trim()}
-                className="absolute right-2 p-2 text-gray-400 hover:text-purple-600 disabled:opacity-50 disabled:hover:text-gray-400 transition-colors"
-              >
-                <Send size={20} />
-              </button>
-            </div>
+
+            {/* Messages Container */}
+            {messages.length > 0 && (
+              <div className="space-y-4">
+                {messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div
+                      className={`max-w-[85%] rounded-2xl px-5 py-3 shadow-sm ${
+                        message.type === 'user'
+                          ? 'bg-gradient-to-r from-purple-600 to-purple-500 text-white'
+                          : 'bg-white border border-gray-100 text-gray-800'
+                      }`}
+                    >
+                      <div className="whitespace-pre-wrap text-sm leading-relaxed">{message.content}</div>
+                      {message.chart && (
+                        <div className="mt-4 p-4 bg-gray-50 rounded-xl">
+                          {message.chart}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+                <div ref={messagesEndRef} />
+              </div>
+            )}
           </div>
+        </div>
+
+        {/* Input Area - Fixed at bottom, full width */}
+        <div className="bg-white border-t border-gray-200 px-6 py-4 shrink-0">
+          {/* Quick Action Pills - shown when there are messages */}
+          {messages.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-3">
+              {quickActions.slice(0, 4).map((action, index) => (
+                <button
+                  key={index}
+                  onClick={() => onSendMessage(action.action)}
+                  className="px-3 py-1.5 text-xs text-gray-600 bg-gray-100 rounded-full hover:bg-purple-100 hover:text-purple-700 transition-colors"
+                >
+                  {action.label}
+                </button>
+              ))}
+            </div>
+          )}
+          
+          {/* Input Field - Full width */}
+          <div className="relative flex items-center">
+            <input
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder={`Ask ${agentName} anything...`}
+              className="w-full px-5 py-3.5 pr-14 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent focus:bg-white transition-all text-sm"
+            />
+            <button
+              onClick={handleSend}
+              disabled={!inputValue.trim()}
+              className="absolute right-2 p-2.5 bg-purple-600 text-white rounded-xl hover:bg-purple-700 disabled:opacity-40 disabled:hover:bg-purple-600 transition-all"
+            >
+              <Send size={18} />
+            </button>
+          </div>
+          <p className="text-xs text-gray-400 mt-2 text-center">Press Enter to send • Shift+Enter for new line</p>
         </div>
       </div>
 
       {/* Chart Panel */}
       {chartPanel && (
         <div 
-          className={`border-l border-gray-200 bg-white flex flex-col transition-all duration-300 ${
-            isChartExpanded ? 'w-[600px]' : 'w-[400px]'
+          className={`border-l border-gray-200 bg-white flex flex-col transition-all duration-300 shrink-0 ${
+            isChartExpanded ? 'w-[550px]' : 'w-[380px]'
           }`}
         >
-          <div className="p-4 border-b border-gray-100 flex items-center justify-between shrink-0">
-            <h3 className="font-medium text-gray-900">Visualization</h3>
-            <div className="flex items-center gap-2">
+          {/* Chart Header */}
+          <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between shrink-0 bg-gray-50/50">
+            <h3 className="font-semibold text-gray-900">Visualization</h3>
+            <div className="flex items-center gap-1">
               {/* Export Dropdown */}
               {chartData && chartData.length > 0 && (
                 <div className="relative" ref={exportMenuRef}>
                   <button
                     onClick={() => setShowExportMenu(!showExportMenu)}
-                    className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded transition-colors"
+                    className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
                     title="Export Data"
                   >
-                    <Download size={16} />
+                    <Download size={18} />
                   </button>
                   {showExportMenu && (
-                    <div className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-10 min-w-[160px]">
+                    <div className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg py-2 z-10 min-w-[170px]">
                       <button
                         onClick={handleExportXLS}
-                        className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                        className="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3"
                       >
-                        <FileSpreadsheet size={14} className="text-green-600" />
+                        <FileSpreadsheet size={16} className="text-green-600" />
                         Export as Excel
                       </button>
                       <button
                         onClick={handleExportCSV}
-                        className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                        className="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3"
                       >
-                        <FileText size={14} className="text-blue-600" />
+                        <FileText size={16} className="text-blue-600" />
                         Export as CSV
                       </button>
                       <button
                         onClick={handleExportJSON}
-                        className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                        className="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3"
                       >
-                        <FileJson size={14} className="text-orange-600" />
+                        <FileJson size={16} className="text-orange-600" />
                         Export as JSON
                       </button>
                     </div>
@@ -332,35 +339,40 @@ export default function AgentChatLayout({
               {onToggleChartExpand && (
                 <button
                   onClick={onToggleChartExpand}
-                  className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded transition-colors"
+                  className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
                   title={isChartExpanded ? 'Minimize' : 'Maximize'}
                 >
-                  {isChartExpanded ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+                  {isChartExpanded ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
                 </button>
               )}
               {onCloseChart && (
                 <button
                   onClick={onCloseChart}
-                  className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded transition-colors"
+                  className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
                   title="Close"
                 >
-                  <X size={16} />
+                  <X size={18} />
                 </button>
               )}
             </div>
           </div>
-          <div className="flex-1 overflow-auto p-4">
-            {chartPanel}
+          
+          {/* Chart Content */}
+          <div className="flex-1 overflow-auto p-5">
+            <div className="bg-gray-50/50 rounded-xl p-4 border border-gray-100">
+              {chartPanel}
+            </div>
           </div>
-          {/* Quick Suggestions in Chart Panel */}
-          <div className="p-4 border-t border-gray-100 shrink-0">
-            <p className="text-xs text-gray-500 mb-2">Continue exploring:</p>
+          
+          {/* Quick Suggestions */}
+          <div className="px-5 py-4 border-t border-gray-100 shrink-0 bg-gray-50/30">
+            <p className="text-xs font-medium text-gray-500 mb-3">Continue exploring</p>
             <div className="flex flex-wrap gap-2">
               {quickActions.slice(0, 3).map((action, index) => (
                 <button
                   key={index}
                   onClick={() => onSendMessage(action.action)}
-                  className="px-3 py-1.5 text-xs text-gray-600 bg-gray-50 border border-gray-200 rounded-full hover:bg-purple-50 hover:border-purple-200 hover:text-purple-700 transition-colors"
+                  className="px-3 py-2 text-xs text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-purple-50 hover:border-purple-200 hover:text-purple-700 transition-colors shadow-sm"
                 >
                   {action.label.replace(/^[^\s]+\s/, '')}
                 </button>
