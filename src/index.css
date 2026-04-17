@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Subtle scrollbar styling */
+.scrollbar-thin::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+}
+
+/* Hide scrollbar when not hovering */
+.hover-scrollbar {
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.hover-scrollbar::-webkit-scrollbar {
+  width: 0;
+}
+
+.hover-scrollbar:hover {
+  scrollbar-width: thin;
+}
+
+.hover-scrollbar:hover::-webkit-scrollbar {
+  width: 6px;
+}
