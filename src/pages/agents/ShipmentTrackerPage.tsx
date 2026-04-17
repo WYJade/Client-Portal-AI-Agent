@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import { Package, Navigation, Clock, CheckCircle } from 'lucide-react'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts'
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts'
 import AgentChatLayout, { Message } from '../../components/agent/AgentChatLayout'
 import StatCard from '../../components/agent/StatCard'
 import DataTable from '../../components/agent/DataTable'

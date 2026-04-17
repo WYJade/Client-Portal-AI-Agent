@@ -29,9 +29,7 @@ const mockData: InventoryItem[] = [
 
 export default function InventoryActivity() {
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set())
-  const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
   const [rowsPerPage, setRowsPerPage] = useState(10)
-  const [currentPage, setCurrentPage] = useState(1)
 
   const toggleRowExpand = (id: string) => {
     const newExpanded = new Set(expandedRows)
@@ -40,7 +38,8 @@ export default function InventoryActivity() {
     setExpandedRows(newExpanded)
   }
 
-  const totalPages = Math.ceil(109 / rowsPerPage)
+  // Pagination variables for future use
+  void rowsPerPage
 
   return (
     <div className="h-full flex flex-col">

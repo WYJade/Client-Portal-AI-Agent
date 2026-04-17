@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { ChevronDown, ChevronRight, LayoutDashboard, ShoppingCart, FileText, Clipboard, PackageCheck, Package, PanelLeftClose, Circle } from 'lucide-react'
+import { ChevronDown, ChevronRight, LayoutDashboard, ShoppingCart, FileText, Clipboard, PackageCheck, Package, PanelLeftClose, Circle, LucideIcon } from 'lucide-react'
 import { MenuItem, AIAgentGroup } from '../../types/menu'
 
-const iconMap: Record<string, React.ComponentType<{ size?: number }>> = {
+const iconMap: Record<string, LucideIcon> = {
   LayoutDashboard,
   ShoppingCart,
   FileText,

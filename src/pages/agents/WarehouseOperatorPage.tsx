@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import { Warehouse, Package, ArrowDownToLine, ArrowUpFromLine } from 'lucide-react'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import AgentChatLayout, { Message } from '../../components/agent/AgentChatLayout'
 import StatCard from '../../components/agent/StatCard'
 import DataTable from '../../components/agent/DataTable'
@@ -49,8 +49,6 @@ const columns = [
     }
   },
 ]
-
-const COLORS = ['#8b5cf6', '#22c55e', '#f59e0b', '#3b82f6']
 
 export default function WarehouseOperatorPage() {
   const [messages, setMessages] = useState<Message[]>([])

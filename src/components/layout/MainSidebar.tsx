@@ -1,5 +1,5 @@
 import { Home, Bot, Heart, User } from 'lucide-react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 interface MainSidebarProps {
   activeModule: 'home' | 'agents' | 'favorites'

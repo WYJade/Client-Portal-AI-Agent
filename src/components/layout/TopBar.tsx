@@ -1,4 +1,4 @@
-import { Bell, HelpCircle, Settings, User } from 'lucide-react'
+import { HelpCircle, Settings, User } from 'lucide-react'
 
 export default function TopBar() {
   return (
