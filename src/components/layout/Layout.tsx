@@ -25,7 +25,7 @@ export default function Layout() {
   }
 
   return (
-    <div className="h-screen flex bg-gray-50">
+    <div className="h-screen flex bg-gray-950">
       <MainSidebar activeModule={activeModule} onModuleChange={setActiveModule} />
       <SubSidebar {...getSubSidebarConfig()} />
       <div className="flex-1 flex flex-col">
@@ -33,7 +33,7 @@ export default function Layout() {
         <main className="flex-1 overflow-auto">
           <Outlet context={{ selectedAgentId, agents: aiAgents }} />
         </main>
-        <footer className="text-center text-xs text-gray-400 py-2 border-t border-gray-100">
+        <footer className="text-center text-xs text-gray-500 py-2 border-t border-gray-800">
           © 2025 item.com
         </footer>
       </div>

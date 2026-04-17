@@ -4,11 +4,11 @@ interface StatusBadgeProps {
 }
 
 const statusStyles = {
-  success: 'bg-green-100 text-green-700',
-  warning: 'bg-yellow-100 text-yellow-700',
-  error: 'bg-red-100 text-red-700',
-  info: 'bg-blue-100 text-blue-700',
-  pending: 'bg-gray-100 text-gray-700',
+  success: 'bg-green-500/20 text-green-400',
+  warning: 'bg-yellow-500/20 text-yellow-400',
+  error: 'bg-red-500/20 text-red-400',
+  info: 'bg-blue-500/20 text-blue-400',
+  pending: 'bg-gray-500/20 text-gray-400',
 }
 
 export default function StatusBadge({ status, label }: StatusBadgeProps) {

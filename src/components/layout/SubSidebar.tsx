@@ -46,7 +46,7 @@ export default function SubSidebar({ title, menuItems, agentGroups, selectedAgen
             else if (item.path) navigate(item.path)
           }}
           className={`w-full flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors ${
-            isActive ? 'bg-purple-100 text-purple-700' : 'text-gray-700 hover:bg-gray-100'
+            isActive ? 'bg-purple-600/20 text-purple-400' : 'text-gray-300 hover:bg-gray-800'
           }`}
           style={{ paddingLeft: `${12 + depth * 16}px` }}
         >
@@ -68,9 +68,9 @@ export default function SubSidebar({ title, menuItems, agentGroups, selectedAgen
         <div key={group.id}>
           <button
             onClick={() => toggleExpand(group.id)}
-            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:bg-gray-800 rounded-lg transition-colors"
           >
-            <Circle size={8} className="text-gray-400" fill="currentColor" />
+            <Circle size={8} className="text-gray-500" fill="currentColor" />
             <span className="flex-1 text-left font-medium">{group.label}</span>
             {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
           </button>
@@ -81,10 +81,10 @@ export default function SubSidebar({ title, menuItems, agentGroups, selectedAgen
                   key={agent.id}
                   onClick={() => onAgentSelect?.(agent.id)}
                   className={`w-full flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors ${
-                    selectedAgentId === agent.id ? 'bg-purple-100 text-purple-700' : 'text-gray-600 hover:bg-gray-100'
+                    selectedAgentId === agent.id ? 'bg-purple-600/20 text-purple-400' : 'text-gray-400 hover:bg-gray-800'
                   }`}
                 >
-                  <Circle size={6} className="text-gray-300" />
+                  <Circle size={6} className="text-gray-600" />
                   <span className="flex-1 text-left">{agent.name}</span>
                 </button>
               ))}
@@ -96,10 +96,10 @@ export default function SubSidebar({ title, menuItems, agentGroups, selectedAgen
   }
 
   return (
-    <div className="w-56 bg-white border-r border-gray-200 flex flex-col">
-      <div className="p-4 border-b border-gray-100 flex items-center justify-between">
-        <span className="font-medium text-gray-900">{title}</span>
-        <PanelLeftClose size={18} className="text-gray-400 cursor-pointer hover:text-gray-600" />
+    <div className="w-56 bg-gray-900 border-r border-gray-800 flex flex-col">
+      <div className="p-4 border-b border-gray-800 flex items-center justify-between">
+        <span className="font-medium text-gray-100">{title}</span>
+        <PanelLeftClose size={18} className="text-gray-500 cursor-pointer hover:text-gray-300" />
       </div>
       <div className="flex-1 overflow-y-auto scrollbar-thin p-2">
         {menuItems && menuItems.map((item) => renderMenuItem(item))}

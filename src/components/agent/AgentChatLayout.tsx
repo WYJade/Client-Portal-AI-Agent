@@ -172,17 +172,17 @@ export default function AgentChatLayout({
   }
 
   return (
-    <div className="h-full flex bg-gray-50/50">
+    <div className="h-full flex bg-gray-950">
       {/* Main Content Area */}
       <div className={`flex-1 flex flex-col min-w-0 transition-all duration-300`}>
         {/* Scrollable Content */}
         <div 
           ref={scrollContainerRef}
           className="flex-1 overflow-y-auto"
-          style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(0,0,0,0.08) transparent' }}
+          style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.1) transparent' }}
         >
-          {/* Stats Panel - Full width with subtle background */}
-          <div className="bg-white border-b border-gray-100">
+          {/* Stats Panel */}
+          <div className="bg-gray-900 border-b border-gray-800">
             <div className="px-6 py-5">
               {statsPanel}
             </div>
@@ -192,10 +192,10 @@ export default function AgentChatLayout({
           <div className="px-6 py-6">
             {/* Welcome Message - Simple and friendly */}
             <div className="mb-6">
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">
+              <h2 className="text-xl font-semibold text-gray-100 mb-2">
                 Hi, I'm your {agentName}
               </h2>
-              <p className="text-gray-500 leading-relaxed">{welcomeMessage}</p>
+              <p className="text-gray-400 leading-relaxed">{welcomeMessage}</p>
             </div>
 
             {/* Quick Actions Grid - only shown when no messages */}
@@ -205,9 +205,9 @@ export default function AgentChatLayout({
                   <button
                     key={index}
                     onClick={() => onSendMessage(action.action)}
-                    className="p-4 text-left bg-white border border-gray-200 rounded-xl hover:border-purple-300 hover:bg-purple-50/50 hover:shadow-sm transition-all group"
+                    className="p-4 text-left bg-gray-900 border border-gray-800 rounded-xl hover:border-purple-500/50 hover:bg-gray-800 transition-all group"
                   >
-                    <span className="text-sm text-gray-700 group-hover:text-purple-700 line-clamp-2">
+                    <span className="text-sm text-gray-300 group-hover:text-purple-400 line-clamp-2">
                       {action.label}
                     </span>
                   </button>
@@ -224,15 +224,15 @@ export default function AgentChatLayout({
                     className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-[85%] rounded-2xl px-5 py-3 shadow-sm ${
+                      className={`max-w-[85%] rounded-2xl px-5 py-3 ${
                         message.type === 'user'
-                          ? 'bg-gradient-to-r from-purple-600 to-purple-500 text-white'
-                          : 'bg-white border border-gray-100 text-gray-800'
+                          ? 'bg-purple-600 text-white'
+                          : 'bg-gray-800 border border-gray-700 text-gray-200'
                       }`}
                     >
                       <div className="whitespace-pre-wrap text-sm leading-relaxed">{message.content}</div>
                       {message.chart && (
-                        <div className="mt-4 p-4 bg-gray-50 rounded-xl">
+                        <div className="mt-4 p-4 bg-gray-900 rounded-xl">
                           {message.chart}
                         </div>
                       )}
@@ -246,7 +246,7 @@ export default function AgentChatLayout({
         </div>
 
         {/* Input Area - Fixed at bottom, full width */}
-        <div className="bg-white border-t border-gray-200 px-6 py-4 shrink-0">
+        <div className="bg-gray-900 border-t border-gray-800 px-6 py-4 shrink-0">
           {/* Quick Action Pills - shown when there are messages */}
           {messages.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-3">
@@ -254,7 +254,7 @@ export default function AgentChatLayout({
                 <button
                   key={index}
                   onClick={() => onSendMessage(action.action)}
-                  className="px-3 py-1.5 text-xs text-gray-600 bg-gray-100 rounded-full hover:bg-purple-100 hover:text-purple-700 transition-colors"
+                  className="px-3 py-1.5 text-xs text-gray-400 bg-gray-800 rounded-full hover:bg-purple-600/20 hover:text-purple-400 transition-colors"
                 >
                   {action.label}
                 </button>
@@ -270,62 +270,62 @@ export default function AgentChatLayout({
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder={`Ask ${agentName} anything...`}
-              className="w-full px-5 py-3.5 pr-14 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent focus:bg-white transition-all text-sm"
+              className="w-full px-5 py-3.5 pr-14 bg-gray-800 border border-gray-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-200 placeholder-gray-500 transition-all text-sm"
             />
             <button
               onClick={handleSend}
               disabled={!inputValue.trim()}
-              className="absolute right-2 p-2.5 bg-purple-600 text-white rounded-xl hover:bg-purple-700 disabled:opacity-40 disabled:hover:bg-purple-600 transition-all"
+              className="absolute right-2 p-2.5 bg-purple-600 text-white rounded-xl hover:bg-purple-500 disabled:opacity-40 disabled:hover:bg-purple-600 transition-all"
             >
               <Send size={18} />
             </button>
           </div>
-          <p className="text-xs text-gray-400 mt-2 text-center">Press Enter to send • Shift+Enter for new line</p>
+          <p className="text-xs text-gray-600 mt-2 text-center">Press Enter to send • Shift+Enter for new line</p>
         </div>
       </div>
 
       {/* Chart Panel */}
       {chartPanel && (
         <div 
-          className={`border-l border-gray-200 bg-white flex flex-col transition-all duration-300 shrink-0 ${
+          className={`border-l border-gray-800 bg-gray-900 flex flex-col transition-all duration-300 shrink-0 ${
             isChartExpanded ? 'w-[550px]' : 'w-[380px]'
           }`}
         >
           {/* Chart Header */}
-          <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between shrink-0 bg-gray-50/50">
-            <h3 className="font-semibold text-gray-900">Visualization</h3>
+          <div className="px-5 py-4 border-b border-gray-800 flex items-center justify-between shrink-0">
+            <h3 className="font-semibold text-gray-100">Visualization</h3>
             <div className="flex items-center gap-1">
               {/* Export Dropdown */}
               {chartData && chartData.length > 0 && (
                 <div className="relative" ref={exportMenuRef}>
                   <button
                     onClick={() => setShowExportMenu(!showExportMenu)}
-                    className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="p-2 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-colors"
                     title="Export Data"
                   >
                     <Download size={18} />
                   </button>
                   {showExportMenu && (
-                    <div className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg py-2 z-10 min-w-[170px]">
+                    <div className="absolute right-0 top-full mt-1 bg-gray-800 border border-gray-700 rounded-xl shadow-lg py-2 z-10 min-w-[170px]">
                       <button
                         onClick={handleExportXLS}
-                        className="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3"
+                        className="w-full px-4 py-2.5 text-left text-sm text-gray-300 hover:bg-gray-700 flex items-center gap-3"
                       >
-                        <FileSpreadsheet size={16} className="text-green-600" />
+                        <FileSpreadsheet size={16} className="text-green-500" />
                         Export as Excel
                       </button>
                       <button
                         onClick={handleExportCSV}
-                        className="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3"
+                        className="w-full px-4 py-2.5 text-left text-sm text-gray-300 hover:bg-gray-700 flex items-center gap-3"
                       >
-                        <FileText size={16} className="text-blue-600" />
+                        <FileText size={16} className="text-blue-500" />
                         Export as CSV
                       </button>
                       <button
                         onClick={handleExportJSON}
-                        className="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3"
+                        className="w-full px-4 py-2.5 text-left text-sm text-gray-300 hover:bg-gray-700 flex items-center gap-3"
                       >
-                        <FileJson size={16} className="text-orange-600" />
+                        <FileJson size={16} className="text-orange-500" />
                         Export as JSON
                       </button>
                     </div>
@@ -335,7 +335,7 @@ export default function AgentChatLayout({
               {onToggleChartExpand && (
                 <button
                   onClick={onToggleChartExpand}
-                  className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-2 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-colors"
                   title={isChartExpanded ? 'Minimize' : 'Maximize'}
                 >
                   {isChartExpanded ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
@@ -344,7 +344,7 @@ export default function AgentChatLayout({
               {onCloseChart && (
                 <button
                   onClick={onCloseChart}
-                  className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-2 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-colors"
                   title="Close"
                 >
                   <X size={18} />
@@ -355,20 +355,20 @@ export default function AgentChatLayout({
           
           {/* Chart Content */}
           <div className="flex-1 overflow-auto p-5">
-            <div className="bg-gray-50/50 rounded-xl p-4 border border-gray-100">
+            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-800">
               {chartPanel}
             </div>
           </div>
           
           {/* Quick Suggestions */}
-          <div className="px-5 py-4 border-t border-gray-100 shrink-0 bg-gray-50/30">
+          <div className="px-5 py-4 border-t border-gray-800 shrink-0">
             <p className="text-xs font-medium text-gray-500 mb-3">Continue exploring</p>
             <div className="flex flex-wrap gap-2">
               {quickActions.slice(0, 3).map((action, index) => (
                 <button
                   key={index}
                   onClick={() => onSendMessage(action.action)}
-                  className="px-3 py-2 text-xs text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-purple-50 hover:border-purple-200 hover:text-purple-700 transition-colors shadow-sm"
+                  className="px-3 py-2 text-xs text-gray-400 bg-gray-800 border border-gray-700 rounded-lg hover:bg-purple-600/20 hover:border-purple-500/50 hover:text-purple-400 transition-colors"
                 >
                   {action.label.replace(/^[^\s]+\s/, '')}
                 </button>

@@ -15,14 +15,14 @@ export default function DataTable({ columns, data, maxRows = 5 }: DataTableProps
   const displayData = maxRows ? data.slice(0, maxRows) : data
 
   return (
-    <div className="overflow-hidden rounded-lg border border-gray-200">
+    <div className="overflow-hidden rounded-lg border border-gray-700">
       <table className="w-full text-sm">
-        <thead className="bg-gray-50">
+        <thead className="bg-gray-800">
           <tr>
             {columns.map((col) => (
               <th
                 key={col.key}
-                className={`px-3 py-2 font-medium text-gray-600 ${
+                className={`px-3 py-2 font-medium text-gray-400 ${
                   col.align === 'right' ? 'text-right' : col.align === 'center' ? 'text-center' : 'text-left'
                 }`}
               >
@@ -31,13 +31,13 @@ export default function DataTable({ columns, data, maxRows = 5 }: DataTableProps
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-100">
+        <tbody className="divide-y divide-gray-800">
           {displayData.map((row, index) => (
-            <tr key={index} className="hover:bg-gray-50">
+            <tr key={index} className="hover:bg-gray-800/50">
               {columns.map((col) => (
                 <td
                   key={col.key}
-                  className={`px-3 py-2 text-gray-700 ${
+                  className={`px-3 py-2 text-gray-300 ${
                     col.align === 'right' ? 'text-right' : col.align === 'center' ? 'text-center' : 'text-left'
                   }`}
                 >
@@ -49,7 +49,7 @@ export default function DataTable({ columns, data, maxRows = 5 }: DataTableProps
         </tbody>
       </table>
       {data.length > maxRows && (
-        <div className="px-3 py-2 text-xs text-gray-500 bg-gray-50 border-t border-gray-100">
+        <div className="px-3 py-2 text-xs text-gray-500 bg-gray-800 border-t border-gray-700">
           Showing {maxRows} of {data.length} items
         </div>
       )}

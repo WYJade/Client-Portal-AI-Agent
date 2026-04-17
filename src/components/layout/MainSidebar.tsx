@@ -17,7 +17,7 @@ export default function MainSidebar({ activeModule, onModuleChange }: MainSideba
   }
 
   return (
-    <div className="w-16 bg-white border-r border-gray-200 flex flex-col items-center py-4">
+    <div className="w-16 bg-gray-900 border-r border-gray-800 flex flex-col items-center py-4">
       <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center mb-8">
         <span className="text-white font-bold text-sm">P</span>
       </div>
@@ -26,7 +26,7 @@ export default function MainSidebar({ activeModule, onModuleChange }: MainSideba
         <button
           onClick={() => handleClick('home')}
           className={`w-12 h-12 rounded-lg flex flex-col items-center justify-center gap-1 transition-colors ${
-            activeModule === 'home' ? 'bg-purple-100 text-purple-600' : 'text-gray-500 hover:bg-gray-100'
+            activeModule === 'home' ? 'bg-purple-600/20 text-purple-400' : 'text-gray-400 hover:bg-gray-800'
           }`}
         >
           <Home size={20} />
@@ -36,7 +36,7 @@ export default function MainSidebar({ activeModule, onModuleChange }: MainSideba
         <button
           onClick={() => handleClick('agents')}
           className={`w-12 h-12 rounded-lg flex flex-col items-center justify-center gap-1 transition-colors ${
-            activeModule === 'agents' ? 'bg-purple-100 text-purple-600' : 'text-gray-500 hover:bg-gray-100'
+            activeModule === 'agents' ? 'bg-purple-600/20 text-purple-400' : 'text-gray-400 hover:bg-gray-800'
           }`}
         >
           <Bot size={20} />
@@ -46,7 +46,7 @@ export default function MainSidebar({ activeModule, onModuleChange }: MainSideba
         <button
           onClick={() => handleClick('favorites')}
           className={`w-12 h-12 rounded-lg flex flex-col items-center justify-center gap-1 transition-colors ${
-            activeModule === 'favorites' ? 'bg-purple-100 text-purple-600' : 'text-gray-500 hover:bg-gray-100'
+            activeModule === 'favorites' ? 'bg-purple-600/20 text-purple-400' : 'text-gray-400 hover:bg-gray-800'
           }`}
         >
           <Heart size={20} />
@@ -54,7 +54,7 @@ export default function MainSidebar({ activeModule, onModuleChange }: MainSideba
         </button>
       </nav>
 
-      <button className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200">
+      <button className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gray-700">
         <User size={20} />
       </button>
     </div>
