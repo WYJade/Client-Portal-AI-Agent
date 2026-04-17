@@ -7,9 +7,7 @@ import { homeMenuItems, aiAgentGroups, aiAgents } from '../../data/menuConfig'
 
 export default function Layout() {
   const location = useLocation()
-  const [activeModule, setActiveModule] = useState<'home' | 'agents' | 'favorites'>(
-    location.pathname.startsWith('/agents') ? 'agents' : 'home'
-  )
+  const [activeModule, setActiveModule] = useState<'home' | 'agents' | 'favorites'>('agents')
   const [selectedAgentId, setSelectedAgentId] = useState('customer-agent')
 
   const getSubSidebarConfig = () => {

@@ -8,7 +8,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Navigate to="/home/inventory/activity" replace />} />
+        <Route index element={<Navigate to="/agents" replace />} />
         
         {/* Home Module Routes */}
         <Route path="home">
