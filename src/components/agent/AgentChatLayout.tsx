@@ -110,10 +110,22 @@ export default function AgentChatLayout({
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const exportMenuRef = useRef<HTMLDivElement>(null)
+  const prevMessagesLengthRef = useRef(messages.length)
 
+  // Only scroll to bottom when a new message is added, not on page load
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    if (messages.length > prevMessagesLengthRef.current) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+    prevMessagesLengthRef.current = messages.length
   }, [messages])
+
+  // Reset scroll to top when switching agents (messages become empty)
+  useEffect(() => {
+    if (messages.length === 0 && scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0
+    }
+  }, [agentName])
 
   // Close export menu when clicking outside
   useEffect(() => {
