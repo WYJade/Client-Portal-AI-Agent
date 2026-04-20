@@ -99,7 +99,6 @@ export default function AgentChatLayout({
   chartPanel,
   chartData,
   chartTitle = 'chart_data',
-  onCloseChart,
   isChartExpanded,
   onToggleChartExpand,
 }: AgentChatLayoutProps) {
@@ -198,8 +197,8 @@ export default function AgentChatLayout({
                 </h2>
                 <p className="text-gray-400 leading-relaxed">{welcomeMessage}</p>
               </div>
-              {/* Toggle right panel button - show when panel is closed and there are messages */}
-              {!isRightPanelOpen && (messages.length > 0 || chartPanel) && (
+              {/* Toggle right panel button - Always visible */}
+              {!isRightPanelOpen && (
                 <button
                   onClick={() => setIsRightPanelOpen(true)}
                   className="ml-4 p-2.5 text-gray-400 hover:text-purple-400 hover:bg-gray-800 rounded-xl transition-colors border border-gray-700"
@@ -295,8 +294,8 @@ export default function AgentChatLayout({
         </div>
       </div>
 
-      {/* Right Panel - Quick Actions & Chart - Only show when there are messages or chart AND panel is open */}
-      {(messages.length > 0 || chartPanel) && isRightPanelOpen && (
+      {/* Right Panel - Quick Actions & Chart */}
+      {isRightPanelOpen && (
         <div 
           className={`border-l border-gray-800 bg-gray-900 flex flex-col transition-all duration-300 shrink-0 ${
             chartPanel && isChartExpanded ? 'w-[550px]' : 'w-[320px]'
@@ -316,7 +315,7 @@ export default function AgentChatLayout({
           {/* Chart Section - only shown when chartPanel exists */}
           {chartPanel && (
             <>
-              {/* Chart Header */}
+              {/* Chart Header - without close button */}
               <div className="px-5 py-4 border-b border-gray-800 flex items-center justify-between shrink-0">
                 <h3 className="font-semibold text-gray-100">Visualization</h3>
                 <div className="flex items-center gap-1">
@@ -366,15 +365,6 @@ export default function AgentChatLayout({
                       {isChartExpanded ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
                     </button>
                   )}
-                  {onCloseChart && (
-                    <button
-                      onClick={onCloseChart}
-                      className="p-2 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-colors"
-                      title="Close"
-                    >
-                      <X size={18} />
-                    </button>
-                  )}
                 </div>
               </div>
               
@@ -387,22 +377,21 @@ export default function AgentChatLayout({
             </>
           )}
           
-          {/* Quick Suggestions - Only show when there are messages */}
-          {messages.length > 0 && (
-            <div className={`px-5 py-4 shrink-0 ${!chartPanel ? 'flex-1 overflow-auto' : 'border-t border-gray-800'}`}>
-              <div className="flex flex-col gap-2">
-                {quickActions.map((action, index) => (
-                  <button
-                    key={index}
-                    onClick={() => onSendMessage(action.action)}
-                    className="px-3 py-2 text-xs text-left text-gray-400 bg-gray-800 border border-gray-700 rounded-lg hover:bg-purple-600/20 hover:border-purple-500/50 hover:text-purple-400 transition-colors"
-                  >
-                    {action.label}
-                  </button>
-                ))}
-              </div>
+          {/* Quick Suggestions */}
+          <div className={`px-5 py-4 shrink-0 ${!chartPanel ? 'flex-1 overflow-auto' : 'border-t border-gray-800'}`}>
+            <p className="text-xs font-medium text-gray-500 mb-3 uppercase tracking-wide">Quick actions</p>
+            <div className="flex flex-col gap-2">
+              {quickActions.map((action, index) => (
+                <button
+                  key={index}
+                  onClick={() => onSendMessage(action.action)}
+                  className="px-3 py-2 text-xs text-left text-gray-400 bg-gray-800 border border-gray-700 rounded-lg hover:bg-purple-600/20 hover:border-purple-500/50 hover:text-purple-400 transition-colors"
+                >
+                  {action.label}
+                </button>
+              ))}
             </div>
-          )}
+          </div>
         </div>
       )}
     </div>
