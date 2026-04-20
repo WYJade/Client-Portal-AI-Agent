@@ -269,7 +269,7 @@ export default function AgentChatLayout({
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder={`Ask ${agentName} anything...`}
+              placeholder={`Ask ${agentName} anything... Press Enter to send`}
               className="w-full px-5 py-3.5 pr-14 bg-gray-800 border border-gray-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-200 placeholder-gray-500 transition-all text-sm"
             />
             <button
@@ -280,7 +280,6 @@ export default function AgentChatLayout({
               <Send size={18} />
             </button>
           </div>
-          <p className="text-xs text-gray-600 mt-2 text-center">Press Enter to send • Shift+Enter for new line</p>
         </div>
       </div>
 
