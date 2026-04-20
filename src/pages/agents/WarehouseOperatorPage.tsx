@@ -162,7 +162,7 @@ export default function WarehouseOperatorPage() {
       </div>
       <div className="mt-4">
         <SectionHeader title="Active Tasks" linkText="Inventory Activity" linkPath="/home/inventory/activity" />
-        <DataTable columns={columns} data={recentTasks} maxRows={4} />
+        <DataTable columns={columns} data={recentTasks} maxRows={4} rowLinkPath="/home/inventory/activity" />
       </div>
     </div>
   )

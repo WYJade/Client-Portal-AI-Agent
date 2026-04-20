@@ -181,8 +181,33 @@ export default function AgentChatLayout({
           className="flex-1 overflow-y-auto"
           style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.1) transparent' }}
         >
-          {/* Stats Panel - Dashboard Section */}
-          <div className="bg-gray-900 border-b border-gray-700">
+          {/* Welcome Message Section - At TOP */}
+          <div className="px-6 py-5 bg-gray-950">
+            <h2 className="text-xl font-semibold text-gray-100 mb-2">
+              Hi, I'm your {agentName}
+            </h2>
+            <p className="text-gray-400 leading-relaxed">{welcomeMessage}</p>
+            
+            {/* Quick Actions Grid - only shown when no messages */}
+            {messages.length === 0 && (
+              <div className="grid grid-cols-2 gap-3 mt-5">
+                {quickActions.slice(0, 4).map((action, index) => (
+                  <button
+                    key={index}
+                    onClick={() => onSendMessage(action.action)}
+                    className="p-4 text-left bg-gray-900 border border-gray-800 rounded-xl hover:border-purple-500/50 hover:bg-gray-800 transition-all group"
+                  >
+                    <span className="text-sm text-gray-300 group-hover:text-purple-400 line-clamp-2">
+                      {action.label}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Stats Panel - Dashboard Section - BELOW welcome message */}
+          <div className="bg-gray-900 border-t border-b border-gray-700">
             <div className="px-6 py-5">
               {statsPanel}
             </div>
@@ -200,33 +225,8 @@ export default function AgentChatLayout({
             </div>
           </div>
 
-          {/* Chat Content Area */}
+          {/* Chat Content Area - Messages only */}
           <div className="px-6 py-4 bg-gray-950">
-            {/* Welcome Message - Simple and friendly */}
-            <div className="mb-6">
-              <h2 className="text-xl font-semibold text-gray-100 mb-2">
-                Hi, I'm your {agentName}
-              </h2>
-              <p className="text-gray-400 leading-relaxed">{welcomeMessage}</p>
-            </div>
-
-            {/* Quick Actions Grid - only shown when no messages */}
-            {messages.length === 0 && (
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                {quickActions.slice(0, 4).map((action, index) => (
-                  <button
-                    key={index}
-                    onClick={() => onSendMessage(action.action)}
-                    className="p-4 text-left bg-gray-900 border border-gray-800 rounded-xl hover:border-purple-500/50 hover:bg-gray-800 transition-all group"
-                  >
-                    <span className="text-sm text-gray-300 group-hover:text-purple-400 line-clamp-2">
-                      {action.label}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            )}
-
             {/* Messages Container */}
             {messages.length > 0 && (
               <div className="space-y-4">

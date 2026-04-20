@@ -183,7 +183,7 @@ export default function ProcurementCopilotPage() {
       </div>
       <div className="mt-4">
         <SectionHeader title="Pending Requests" linkText="Purchase Request" linkPath="/home/purchase/request" />
-        <DataTable columns={columns} data={pendingApprovals} maxRows={4} />
+        <DataTable columns={columns} data={pendingApprovals} maxRows={4} rowLinkPath="/home/purchase/request" />
       </div>
     </div>
   )

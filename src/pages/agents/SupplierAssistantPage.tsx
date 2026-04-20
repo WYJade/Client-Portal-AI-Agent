@@ -160,7 +160,7 @@ export default function SupplierAssistantPage() {
       </div>
       <div className="mt-4">
         <SectionHeader title="Recent Purchase Orders" linkText="Purchase Orders" linkPath="/home/purchase/order" />
-        <DataTable columns={columns} data={pendingPOs} maxRows={4} />
+        <DataTable columns={columns} data={pendingPOs} maxRows={4} rowLinkPath="/home/purchase/order" />
       </div>
     </div>
   )

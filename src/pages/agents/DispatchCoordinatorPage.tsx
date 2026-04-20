@@ -166,7 +166,7 @@ export default function DispatchCoordinatorPage() {
       </div>
       <div className="mt-4">
         <SectionHeader title="Active Dispatches" linkText="OTIF Dashboard" linkPath="/home/dashboards/otif" />
-        <DataTable columns={columns} data={activeDispatches} maxRows={4} />
+        <DataTable columns={columns} data={activeDispatches} maxRows={4} rowLinkPath="/home/dashboards/otif" />
       </div>
     </div>
   )

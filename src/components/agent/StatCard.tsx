@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
-import { TrendingUp, TrendingDown, Minus } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { TrendingUp, TrendingDown, Minus, ExternalLink } from 'lucide-react'
 
 interface StatCardProps {
   title: string
@@ -9,6 +10,7 @@ interface StatCardProps {
   trendValue?: string
   icon?: ReactNode
   color?: 'purple' | 'green' | 'blue' | 'orange' | 'red' | 'gray'
+  linkPath?: string
 }
 
 const colorClasses = {
@@ -26,13 +28,35 @@ const trendColors = {
   neutral: 'text-gray-500',
 }
 
-export default function StatCard({ title, value, subtitle, trend, trendValue, icon, color = 'purple' }: StatCardProps) {
+export default function StatCard({ title, value, subtitle, trend, trendValue, icon, color = 'purple', linkPath }: StatCardProps) {
+  const navigate = useNavigate()
+  
+  const handleClick = () => {
+    if (linkPath) {
+      navigate(linkPath)
+    }
+  }
+
   return (
-    <div className="bg-gray-800 rounded-xl border border-gray-700 p-4 hover:border-gray-600 transition-colors">
+    <div 
+      className={`bg-gray-800 rounded-xl border border-gray-700 p-4 transition-all ${
+        linkPath ? 'cursor-pointer hover:border-purple-500/50 hover:bg-gray-800/80 group' : 'hover:border-gray-600'
+      }`}
+      onClick={handleClick}
+    >
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">{title}</p>
-          <p className="mt-1 text-2xl font-semibold text-gray-100">{value}</p>
+          <div className="flex items-center gap-1.5">
+            <p className={`text-xs font-medium uppercase tracking-wide ${linkPath ? 'text-purple-400' : 'text-gray-400'}`}>
+              {title}
+            </p>
+            {linkPath && (
+              <ExternalLink size={10} className="text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+            )}
+          </div>
+          <p className={`mt-1 text-2xl font-semibold ${linkPath ? 'text-purple-300 group-hover:text-purple-200' : 'text-gray-100'}`}>
+            {value}
+          </p>
           {subtitle && <p className="mt-0.5 text-xs text-gray-500">{subtitle}</p>}
           {trend && trendValue && (
             <div className={`mt-2 flex items-center gap-1 text-xs ${trendColors[trend]}`}>

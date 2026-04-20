@@ -191,7 +191,7 @@ export default function InventoryAdvisorPage() {
       </div>
       <div className="mt-4">
         <SectionHeader title="Stock Alerts" linkText="Inventory Activity" linkPath="/home/inventory/activity" />
-        <DataTable columns={columns} data={stockAlerts} maxRows={4} />
+        <DataTable columns={columns} data={stockAlerts} maxRows={4} rowLinkPath="/home/inventory/activity" />
       </div>
     </div>
   )

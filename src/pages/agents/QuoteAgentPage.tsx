@@ -155,7 +155,7 @@ export default function QuoteAgentPage() {
       </div>
       <div className="mt-4">
         <SectionHeader title="Recent Quotes" linkText="Sales Orders" linkPath="/home/sales/wholesale" />
-        <DataTable columns={columns} data={recentQuotes} maxRows={4} />
+        <DataTable columns={columns} data={recentQuotes} maxRows={4} rowLinkPath="/home/sales/wholesale" />
       </div>
     </div>
   )

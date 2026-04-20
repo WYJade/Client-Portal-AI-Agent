@@ -204,7 +204,7 @@ export default function ExceptionHandlerPage() {
       </div>
       <div className="mt-4">
         <SectionHeader title="Recent Exceptions" linkText="Ticket Insights" linkPath="/home/dashboards/ticket-insights" />
-        <DataTable columns={columns} data={activeExceptions} maxRows={4} />
+        <DataTable columns={columns} data={activeExceptions} maxRows={4} rowLinkPath="/home/dashboards/ticket-insights" />
       </div>
     </div>
   )

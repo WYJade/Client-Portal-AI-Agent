@@ -165,7 +165,7 @@ export default function ShipmentTrackerPage() {
       </div>
       <div className="mt-4">
         <SectionHeader title="Recent Shipments" linkText="Schedule Summary" linkPath="/home/inbound/schedule-summary" />
-        <DataTable columns={columns} data={activeShipments} maxRows={4} />
+        <DataTable columns={columns} data={activeShipments} maxRows={4} rowLinkPath="/home/inbound/schedule-summary" />
       </div>
     </div>
   )

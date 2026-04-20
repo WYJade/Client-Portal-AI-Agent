@@ -22,11 +22,10 @@ const productData = [
 ]
 
 const recentOrders = [
-  { id: 'ORD-9847', customer: 'Acme Corp', amount: '$12,450', items: 24, status: 'processing', date: 'Today' },
-  { id: 'ORD-9846', customer: 'TechStart Inc', amount: '$8,200', items: 15, status: 'shipped', date: 'Today' },
-  { id: 'ORD-9845', customer: 'Global Trade', amount: '$24,800', items: 48, status: 'delivered', date: 'Yesterday' },
-  { id: 'ORD-9844', customer: 'FastShip LLC', amount: '$6,750', items: 12, status: 'processing', date: 'Yesterday' },
-  { id: 'ORD-9843', customer: 'Prime Logistics', amount: '$18,300', items: 36, status: 'delivered', date: '2 days ago' },
+  { orderNo: 'ORD-9847', poNo: 'PO-78451', status: 'processing', scheduledDate: 'Apr 22', orderedDate: 'Apr 18', retailerName: 'Acme Corp', description: 'Electronic Components', orderedQty: 24, shippedQty: 0, missAppointment: 'No' },
+  { orderNo: 'ORD-9846', poNo: 'PO-78450', status: 'shipped', scheduledDate: 'Apr 20', orderedDate: 'Apr 15', retailerName: 'TechStart Inc', description: 'Sensor Modules', orderedQty: 15, shippedQty: 15, missAppointment: 'No' },
+  { orderNo: 'ORD-9845', poNo: 'PO-78449', status: 'delivered', scheduledDate: 'Apr 19', orderedDate: 'Apr 12', retailerName: 'Global Trade', description: 'Power Supplies', orderedQty: 48, shippedQty: 48, missAppointment: 'No' },
+  { orderNo: 'ORD-9844', poNo: 'PO-78448', status: 'processing', scheduledDate: 'Apr 25', orderedDate: 'Apr 18', retailerName: 'FastShip LLC', description: 'Control Units', orderedQty: 12, shippedQty: 0, missAppointment: 'Yes' },
 ]
 
 const quickActions = [
@@ -39,10 +38,8 @@ const quickActions = [
 ]
 
 const columns = [
-  { key: 'id', label: 'Order ID' },
-  { key: 'customer', label: 'Customer' },
-  { key: 'amount', label: 'Amount', align: 'right' as const },
-  { key: 'items', label: 'Items', align: 'center' as const },
+  { key: 'orderNo', label: 'OrderNo' },
+  { key: 'poNo', label: 'PONo' },
   { 
     key: 'status', 
     label: 'Status',
@@ -55,6 +52,13 @@ const columns = [
       return <StatusBadge status={statusMap[value] || 'pending'} label={value} />
     }
   },
+  { key: 'scheduledDate', label: 'ScheduledDate' },
+  { key: 'orderedDate', label: 'OrderedDate' },
+  { key: 'retailerName', label: 'Retailer Name' },
+  { key: 'description', label: 'Description' },
+  { key: 'orderedQty', label: 'OrderedQty', align: 'right' as const },
+  { key: 'shippedQty', label: 'ShippedQty', align: 'right' as const },
+  { key: 'missAppointment', label: 'MissAppointment' },
 ]
 
 const COLORS = ['#8b5cf6', '#22c55e', '#f59e0b', '#3b82f6']
@@ -164,6 +168,7 @@ export default function SalesAssistantPage() {
           trendValue="+15% vs last month"
           icon={<DollarSign size={20} />}
           color="green"
+          linkPath="/home/dashboards/kpi"
         />
         <StatCard
           title="Orders"
@@ -173,6 +178,7 @@ export default function SalesAssistantPage() {
           trendValue="+23 from last month"
           icon={<ShoppingCart size={20} />}
           color="purple"
+          linkPath="/home/sales/wholesale"
         />
         <StatCard
           title="Avg Order Value"
@@ -182,6 +188,7 @@ export default function SalesAssistantPage() {
           trendValue="+$85 increase"
           icon={<TrendingUp size={20} />}
           color="blue"
+          linkPath="/home/dashboards/kpi"
         />
         <StatCard
           title="Target Progress"
@@ -191,11 +198,17 @@ export default function SalesAssistantPage() {
           trendValue="On track"
           icon={<Target size={20} />}
           color="orange"
+          linkPath="/home/dashboards/kpi"
         />
       </div>
       <div className="mt-4">
         <SectionHeader title="Recent Orders" linkText="Sales Orders" linkPath="/home/sales/wholesale" />
-        <DataTable columns={columns} data={recentOrders} maxRows={4} />
+        <DataTable 
+          columns={columns} 
+          data={recentOrders} 
+          maxRows={4} 
+          rowLinkPath="/home/sales/wholesale"
+        />
       </div>
     </div>
   )

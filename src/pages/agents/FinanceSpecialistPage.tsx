@@ -201,7 +201,7 @@ export default function FinanceSpecialistPage() {
       </div>
       <div className="mt-4">
         <SectionHeader title="Pending Invoices" linkText="KPI Dashboard" linkPath="/home/dashboards/kpi" />
-        <DataTable columns={columns} data={pendingInvoices} maxRows={4} />
+        <DataTable columns={columns} data={pendingInvoices} maxRows={4} rowLinkPath="/home/dashboards/kpi" />
       </div>
     </div>
   )

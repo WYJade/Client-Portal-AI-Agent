@@ -202,7 +202,7 @@ export default function SmallParcelAgentPage() {
       </div>
       <div className="mt-4">
         <SectionHeader title="Recent Shipments" linkText="Shipment Tracking" linkPath="/home/logistics/tracking" />
-        <DataTable columns={columns} data={recentShipments} maxRows={4} />
+        <DataTable columns={columns} data={recentShipments} maxRows={4} rowLinkPath="/home/inbound/schedule-summary" />
       </div>
     </div>
   )

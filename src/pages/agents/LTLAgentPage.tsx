@@ -211,7 +211,7 @@ export default function LTLAgentPage() {
       </div>
       <div className="mt-4">
         <SectionHeader title="Active Shipments" linkText="Freight Management" linkPath="/home/logistics/freight" />
-        <DataTable columns={columns} data={activeShipments} maxRows={4} />
+        <DataTable columns={columns} data={activeShipments} maxRows={4} rowLinkPath="/home/inbound/schedule-summary" />
       </div>
     </div>
   )

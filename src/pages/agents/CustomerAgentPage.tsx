@@ -165,29 +165,38 @@ export default function CustomerAgentPage() {
           value="0"
           subtitle="Active tickets requiring attention"
           color="purple"
+          linkPath="/home/dashboards/ticket-insights"
         />
         <StatCard
           title="Closed Tickets"
           value="1"
           subtitle="Total tickets closed"
           color="green"
+          linkPath="/home/dashboards/ticket-insights"
         />
         <StatCard
           title="Avg Resolution Time"
           value="17h"
           subtitle="Time to resolve tickets"
           color="blue"
+          linkPath="/home/dashboards/kpi"
         />
         <StatCard
           title="Top Topic"
           value="UF General Inquiry"
           subtitle="1 tickets"
           color="orange"
+          linkPath="/home/dashboards/ticket-insights"
         />
       </div>
       <div className="mt-4">
         <SectionHeader title="Recent Tickets" linkText="Ticket Insights" linkPath="/home/dashboards/ticket-insights" />
-        <DataTable columns={columns} data={recentTickets} maxRows={4} />
+        <DataTable 
+          columns={columns} 
+          data={recentTickets} 
+          maxRows={4} 
+          rowLinkPath="/home/dashboards/ticket-insights"
+        />
       </div>
     </div>
   )
