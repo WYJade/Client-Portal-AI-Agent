@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, ReactNode } from 'react'
-import { Send, X, Download, Maximize2, Minimize2, FileSpreadsheet, FileText, FileJson, PanelRightClose, PanelRightOpen } from 'lucide-react'
+import { Send, X, Download, Maximize2, Minimize2, FileSpreadsheet, FileText, FileJson, PanelRightClose } from 'lucide-react'
 import * as XLSX from 'xlsx'
 
 export interface Message {
@@ -274,134 +274,116 @@ export default function AgentChatLayout({
         </div>
       </div>
 
-      {/* Right Panel - Quick Actions & Chart - Only show when there are messages or chart */}
-      {(messages.length > 0 || chartPanel) && (
-        <>
-          {/* Collapsed state - show expand button */}
-          {!isRightPanelOpen && (
-            <div className="border-l border-gray-800 bg-gray-900 flex flex-col items-center py-4 px-2 shrink-0">
-              <button
-                onClick={() => setIsRightPanelOpen(true)}
-                className="p-2 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-colors"
-                title="Open panel"
-              >
-                <PanelRightOpen size={20} />
-              </button>
-            </div>
-          )}
-          
-          {/* Expanded state - full panel */}
-          {isRightPanelOpen && (
-            <div 
-              className={`border-l border-gray-800 bg-gray-900 flex flex-col transition-all duration-300 shrink-0 ${
-                chartPanel && isChartExpanded ? 'w-[550px]' : 'w-[320px]'
-              }`}
+      {/* Right Panel - Quick Actions & Chart - Only show when there are messages or chart AND panel is open */}
+      {(messages.length > 0 || chartPanel) && isRightPanelOpen && (
+        <div 
+          className={`border-l border-gray-800 bg-gray-900 flex flex-col transition-all duration-300 shrink-0 ${
+            chartPanel && isChartExpanded ? 'w-[550px]' : 'w-[320px]'
+          }`}
+        >
+          {/* Panel Header with close button */}
+          <div className="px-4 py-3 border-b border-gray-800 flex items-center justify-between shrink-0">
+            <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Quick actions</span>
+            <button
+              onClick={() => setIsRightPanelOpen(false)}
+              className="p-1.5 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-colors"
+              title="Close panel"
             >
-              {/* Panel Header with close button */}
-              <div className="px-4 py-3 border-b border-gray-800 flex items-center justify-between shrink-0">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Quick actions</span>
-                <button
-                  onClick={() => setIsRightPanelOpen(false)}
-                  className="p-1.5 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-colors"
-                  title="Close panel"
-                >
-                  <PanelRightClose size={18} />
-                </button>
-              </div>
+              <PanelRightClose size={18} />
+            </button>
+          </div>
 
-              {/* Chart Section - only shown when chartPanel exists */}
-              {chartPanel && (
-                <>
-                  {/* Chart Header */}
-                  <div className="px-5 py-4 border-b border-gray-800 flex items-center justify-between shrink-0">
-                    <h3 className="font-semibold text-gray-100">Visualization</h3>
-                    <div className="flex items-center gap-1">
-                      {/* Export Dropdown */}
-                      {chartData && chartData.length > 0 && (
-                        <div className="relative" ref={exportMenuRef}>
+          {/* Chart Section - only shown when chartPanel exists */}
+          {chartPanel && (
+            <>
+              {/* Chart Header */}
+              <div className="px-5 py-4 border-b border-gray-800 flex items-center justify-between shrink-0">
+                <h3 className="font-semibold text-gray-100">Visualization</h3>
+                <div className="flex items-center gap-1">
+                  {/* Export Dropdown */}
+                  {chartData && chartData.length > 0 && (
+                    <div className="relative" ref={exportMenuRef}>
+                      <button
+                        onClick={() => setShowExportMenu(!showExportMenu)}
+                        className="p-2 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-colors"
+                        title="Export Data"
+                      >
+                        <Download size={18} />
+                      </button>
+                      {showExportMenu && (
+                        <div className="absolute right-0 top-full mt-1 bg-gray-800 border border-gray-700 rounded-xl shadow-lg py-2 z-10 min-w-[170px]">
                           <button
-                            onClick={() => setShowExportMenu(!showExportMenu)}
-                            className="p-2 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-colors"
-                            title="Export Data"
+                            onClick={handleExportXLS}
+                            className="w-full px-4 py-2.5 text-left text-sm text-gray-300 hover:bg-gray-700 flex items-center gap-3"
                           >
-                            <Download size={18} />
+                            <FileSpreadsheet size={16} className="text-green-500" />
+                            Export as Excel
                           </button>
-                          {showExportMenu && (
-                            <div className="absolute right-0 top-full mt-1 bg-gray-800 border border-gray-700 rounded-xl shadow-lg py-2 z-10 min-w-[170px]">
-                              <button
-                                onClick={handleExportXLS}
-                                className="w-full px-4 py-2.5 text-left text-sm text-gray-300 hover:bg-gray-700 flex items-center gap-3"
-                              >
-                                <FileSpreadsheet size={16} className="text-green-500" />
-                                Export as Excel
-                              </button>
-                              <button
-                                onClick={handleExportCSV}
-                                className="w-full px-4 py-2.5 text-left text-sm text-gray-300 hover:bg-gray-700 flex items-center gap-3"
-                              >
-                                <FileText size={16} className="text-blue-500" />
-                                Export as CSV
-                              </button>
-                              <button
-                                onClick={handleExportJSON}
-                                className="w-full px-4 py-2.5 text-left text-sm text-gray-300 hover:bg-gray-700 flex items-center gap-3"
-                              >
-                                <FileJson size={16} className="text-orange-500" />
-                                Export as JSON
-                              </button>
-                            </div>
-                          )}
+                          <button
+                            onClick={handleExportCSV}
+                            className="w-full px-4 py-2.5 text-left text-sm text-gray-300 hover:bg-gray-700 flex items-center gap-3"
+                          >
+                            <FileText size={16} className="text-blue-500" />
+                            Export as CSV
+                          </button>
+                          <button
+                            onClick={handleExportJSON}
+                            className="w-full px-4 py-2.5 text-left text-sm text-gray-300 hover:bg-gray-700 flex items-center gap-3"
+                          >
+                            <FileJson size={16} className="text-orange-500" />
+                            Export as JSON
+                          </button>
                         </div>
                       )}
-                      {onToggleChartExpand && (
-                        <button
-                          onClick={onToggleChartExpand}
-                          className="p-2 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-colors"
-                          title={isChartExpanded ? 'Minimize' : 'Maximize'}
-                        >
-                          {isChartExpanded ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
-                        </button>
-                      )}
-                      {onCloseChart && (
-                        <button
-                          onClick={onCloseChart}
-                          className="p-2 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-colors"
-                          title="Close"
-                        >
-                          <X size={18} />
-                        </button>
-                      )}
                     </div>
-                  </div>
-                  
-                  {/* Chart Content */}
-                  <div className="flex-1 overflow-auto p-5">
-                    <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-800">
-                      {chartPanel}
-                    </div>
-                  </div>
-                </>
-              )}
-              
-              {/* Quick Suggestions - Only show when there are messages */}
-              {messages.length > 0 && (
-                <div className={`px-5 py-4 shrink-0 ${!chartPanel ? 'flex-1 overflow-auto' : 'border-t border-gray-800'}`}>
-                  <div className="flex flex-col gap-2">
-                    {quickActions.map((action, index) => (
-                      <button
-                        key={index}
-                        onClick={() => onSendMessage(action.action)}
-                        className="px-3 py-2 text-xs text-left text-gray-400 bg-gray-800 border border-gray-700 rounded-lg hover:bg-purple-600/20 hover:border-purple-500/50 hover:text-purple-400 transition-colors"
-                      >
-                        {action.label}
-                      </button>
-                    ))}
-                  </div>
+                  )}
+                  {onToggleChartExpand && (
+                    <button
+                      onClick={onToggleChartExpand}
+                      className="p-2 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-colors"
+                      title={isChartExpanded ? 'Minimize' : 'Maximize'}
+                    >
+                      {isChartExpanded ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
+                    </button>
+                  )}
+                  {onCloseChart && (
+                    <button
+                      onClick={onCloseChart}
+                      className="p-2 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-colors"
+                      title="Close"
+                    >
+                      <X size={18} />
+                    </button>
+                  )}
                 </div>
-              )}
+              </div>
+              
+              {/* Chart Content */}
+              <div className="flex-1 overflow-auto p-5">
+                <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-800">
+                  {chartPanel}
+                </div>
+              </div>
+            </>
+          )}
+          
+          {/* Quick Suggestions - Only show when there are messages */}
+          {messages.length > 0 && (
+            <div className={`px-5 py-4 shrink-0 ${!chartPanel ? 'flex-1 overflow-auto' : 'border-t border-gray-800'}`}>
+              <div className="flex flex-col gap-2">
+                {quickActions.map((action, index) => (
+                  <button
+                    key={index}
+                    onClick={() => onSendMessage(action.action)}
+                    className="px-3 py-2 text-xs text-left text-gray-400 bg-gray-800 border border-gray-700 rounded-lg hover:bg-purple-600/20 hover:border-purple-500/50 hover:text-purple-400 transition-colors"
+                  >
+                    {action.label}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
-        </>
+        </div>
       )}
     </div>
   )
