@@ -215,17 +215,8 @@ export default function AgentChatLayout({
             </div>
           )}
 
-          {/* Visual Separator between Dashboard and Chat */}
-          <div className="relative">
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
-            <div className="flex items-center justify-center py-3 bg-gray-950">
-              <div className="flex items-center gap-3">
-                <div className="h-px w-12 bg-gradient-to-r from-transparent to-gray-700"></div>
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Chat</span>
-                <div className="h-px w-12 bg-gradient-to-l from-transparent to-gray-700"></div>
-              </div>
-            </div>
-          </div>
+          {/* Visual Separator */}
+          <div className="h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent"></div>
 
           {/* Chat Content Area - Messages only */}
           <div className="px-6 py-4 bg-gray-950">
