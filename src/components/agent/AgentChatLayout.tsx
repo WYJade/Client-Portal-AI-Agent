@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, ReactNode } from 'react'
-import { Send, X, Download, Maximize2, Minimize2, FileSpreadsheet, FileText, FileJson, PanelRightClose, PanelRight } from 'lucide-react'
+import { Send, X, Download, Maximize2, Minimize2, FileSpreadsheet, FileText, FileJson, PanelRight } from 'lucide-react'
 import * as XLSX from 'xlsx'
 
 export interface Message {
@@ -136,6 +136,13 @@ export default function AgentChatLayout({
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
+
+  // Auto-open right panel when chart is displayed
+  useEffect(() => {
+    if (chartPanel) {
+      setIsRightPanelOpen(true)
+    }
+  }, [chartPanel])
 
   const handleSend = () => {
     if (inputValue.trim()) {
@@ -292,7 +299,7 @@ export default function AgentChatLayout({
             chartPanel && isChartExpanded ? 'w-[550px]' : 'w-[320px]'
           }`}
         >
-          {/* Panel Header with close button */}
+          {/* Panel Header with close button - Always visible at top right */}
           <div className="px-4 py-3 border-b border-gray-800 flex items-center justify-between shrink-0">
             <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Quick actions</span>
             <button
@@ -300,7 +307,7 @@ export default function AgentChatLayout({
               className="p-1.5 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-colors"
               title="Close panel"
             >
-              <PanelRightClose size={18} />
+              <X size={18} />
             </button>
           </div>
 
