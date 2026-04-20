@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react'
-import { Users, MessageSquare, Clock, CheckCircle } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts'
 import AgentChatLayout, { Message } from '../../components/agent/AgentChatLayout'
 import StatCard from '../../components/agent/StatCard'
@@ -25,11 +24,11 @@ const satisfactionData = [
 ]
 
 const recentTickets = [
-  { id: 'TKT-2847', customer: 'Acme Corp', subject: 'Order delivery delay', status: 'pending', priority: 'High', time: '10 min ago' },
-  { id: 'TKT-2846', customer: 'TechStart Inc', subject: 'Invoice discrepancy', status: 'in-progress', priority: 'Medium', time: '25 min ago' },
-  { id: 'TKT-2845', customer: 'Global Trade', subject: 'Product return request', status: 'resolved', priority: 'Low', time: '1 hour ago' },
-  { id: 'TKT-2844', customer: 'FastShip LLC', subject: 'Account access issue', status: 'resolved', priority: 'High', time: '2 hours ago' },
-  { id: 'TKT-2843', customer: 'Prime Logistics', subject: 'Bulk order inquiry', status: 'pending', priority: 'Medium', time: '3 hours ago' },
+  { id: 'TKT-2847', title: 'Order delivery delay inquiry', priority: 'High', status: 'pending', age: '10 min', assignedTo: 'Sarah Chen' },
+  { id: 'TKT-2846', title: 'Invoice discrepancy report', priority: 'Medium', status: 'in-progress', age: '25 min', assignedTo: 'Mike Johnson' },
+  { id: 'TKT-2845', title: 'Product return request', priority: 'Low', status: 'resolved', age: '1 hour', assignedTo: 'Emily Davis' },
+  { id: 'TKT-2844', title: 'Account access issue', priority: 'High', status: 'resolved', age: '2 hours', assignedTo: 'Sarah Chen' },
+  { id: 'TKT-2843', title: 'Bulk order inquiry', priority: 'Medium', status: 'pending', age: '3 hours', assignedTo: 'James Wilson' },
 ]
 
 const quickActions = [
@@ -43,8 +42,19 @@ const quickActions = [
 
 const columns = [
   { key: 'id', label: 'Ticket ID' },
-  { key: 'customer', label: 'Customer' },
-  { key: 'subject', label: 'Subject' },
+  { key: 'title', label: 'Title' },
+  { 
+    key: 'priority', 
+    label: 'Priority',
+    render: (value: string) => {
+      const priorityMap: Record<string, 'error' | 'warning' | 'info'> = {
+        'High': 'error',
+        'Medium': 'warning',
+        'Low': 'info',
+      }
+      return <StatusBadge status={priorityMap[value] || 'info'} label={value} />
+    }
+  },
   { 
     key: 'status', 
     label: 'Status',
@@ -57,7 +67,8 @@ const columns = [
       return <StatusBadge status={statusMap[value] || 'pending'} label={value} />
     }
   },
-  { key: 'time', label: 'Time', align: 'right' as const },
+  { key: 'age', label: 'Age' },
+  { key: 'assignedTo', label: 'Assigned To' },
 ]
 
 export default function CustomerAgentPage() {
@@ -151,38 +162,26 @@ export default function CustomerAgentPage() {
       <div className="grid grid-cols-4 gap-4">
         <StatCard
           title="Open Tickets"
-          value="24"
-          subtitle="8 high priority"
-          trend="down"
-          trendValue="12% from yesterday"
-          icon={<MessageSquare size={20} />}
+          value="0"
+          subtitle="Active tickets requiring attention"
           color="purple"
         />
         <StatCard
-          title="Avg Response Time"
-          value="12 min"
-          subtitle="Target: 15 min"
-          trend="up"
-          trendValue="Improved by 3 min"
-          icon={<Clock size={20} />}
+          title="Closed Tickets"
+          value="1"
+          subtitle="Total tickets closed"
           color="green"
         />
         <StatCard
-          title="Resolution Rate"
-          value="94.2%"
-          subtitle="This week"
-          trend="up"
-          trendValue="+2.1% vs last week"
-          icon={<CheckCircle size={20} />}
+          title="Avg Resolution Time"
+          value="17h"
+          subtitle="Time to resolve tickets"
           color="blue"
         />
         <StatCard
-          title="Active Customers"
-          value="156"
-          subtitle="With open cases"
-          trend="neutral"
-          trendValue="Stable"
-          icon={<Users size={20} />}
+          title="Top Topic"
+          value="UF General Inquiry"
+          subtitle="1 tickets"
           color="orange"
         />
       </div>
