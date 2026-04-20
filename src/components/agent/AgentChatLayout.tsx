@@ -105,7 +105,7 @@ export default function AgentChatLayout({
 }: AgentChatLayoutProps) {
   const [inputValue, setInputValue] = useState('')
   const [showExportMenu, setShowExportMenu] = useState(false)
-  const [isRightPanelOpen, setIsRightPanelOpen] = useState(true)
+  const [isRightPanelOpen, setIsRightPanelOpen] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const exportMenuRef = useRef<HTMLDivElement>(null)
