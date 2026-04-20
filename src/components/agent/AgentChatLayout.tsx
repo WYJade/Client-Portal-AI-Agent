@@ -187,15 +187,24 @@ export default function AgentChatLayout({
               Hi, I'm your {agentName}
             </h2>
             <p className="text-gray-400 leading-relaxed">{welcomeMessage}</p>
-            
-            {/* Quick Actions Grid - only shown when no messages */}
-            {messages.length === 0 && (
-              <div className="grid grid-cols-2 gap-3 mt-5">
+          </div>
+
+          {/* Stats Panel - Dashboard Section - BELOW welcome message */}
+          <div className="bg-gray-900 border-t border-gray-700">
+            <div className="px-6 py-5">
+              {statsPanel}
+            </div>
+          </div>
+
+          {/* Quick Actions Grid - Below stats panel, only shown when no messages */}
+          {messages.length === 0 && (
+            <div className="px-6 py-5 bg-gray-900 border-t border-gray-700">
+              <div className="grid grid-cols-2 gap-3">
                 {quickActions.slice(0, 4).map((action, index) => (
                   <button
                     key={index}
                     onClick={() => onSendMessage(action.action)}
-                    className="p-4 text-left bg-gray-900 border border-gray-800 rounded-xl hover:border-purple-500/50 hover:bg-gray-800 transition-all group"
+                    className="p-4 text-left bg-gray-800 border border-gray-700 rounded-xl hover:border-purple-500/50 hover:bg-gray-700 transition-all group"
                   >
                     <span className="text-sm text-gray-300 group-hover:text-purple-400 line-clamp-2">
                       {action.label}
@@ -203,15 +212,8 @@ export default function AgentChatLayout({
                   </button>
                 ))}
               </div>
-            )}
-          </div>
-
-          {/* Stats Panel - Dashboard Section - BELOW welcome message */}
-          <div className="bg-gray-900 border-t border-b border-gray-700">
-            <div className="px-6 py-5">
-              {statsPanel}
             </div>
-          </div>
+          )}
 
           {/* Visual Separator between Dashboard and Chat */}
           <div className="relative">
