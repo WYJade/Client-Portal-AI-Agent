@@ -25,9 +25,9 @@ const quickActions = [
   { label: '💰 Show accounts receivable summary', action: 'Show accounts receivable summary' },
   { label: '📊 Cash flow analysis', action: 'Cash flow analysis this quarter' },
   { label: '⚠️ Overdue invoices report', action: 'Show overdue invoices' },
+  { label: '💳 Make a payment', action: 'I need to pay an invoice - payment due' },
   { label: '📋 Pending payments to process', action: 'Pending payments to process' },
   { label: '📈 Revenue vs expenses trend', action: 'Revenue vs expenses trend' },
-  { label: '🔍 Check payment status for...', action: 'Check payment status for Acme Corp' },
 ]
 
 const columns = [
@@ -130,8 +130,10 @@ export default function FinanceSpecialistPage() {
             <div className="text-xs text-gray-500">Green: Cash Inflow | Red: Cash Outflow</div>
           </div>
         )
+      } else if (content.toLowerCase().includes('payment due') || content.toLowerCase().includes('pay invoice') || content.toLowerCase().includes('make payment')) {
+        response = `💳 **Payment Due - Action Required**\n\nI see you need to make a payment. Here's how to proceed:\n\n**Outstanding Invoices:**\n\n📄 **INV-9847** - $24,500\n   • Due: Apr 20, 2026\n   • Status: Payment Due\n\n📄 **INV-9842** - $18,200\n   • Due: Apr 15, 2026 (Overdue)\n   • Status: Requires immediate attention\n\n**To make a payment:**\n\n👉 **[Go to Invoice & Payments Page](/home/finance/invoices)** to view all invoices and process payments.\n\n**Payment Methods Available:**\n• ACH Bank Transfer (Recommended - No fees)\n• Credit Card (2.5% processing fee)\n• Wire Transfer\n\n**Need help?**\n• Contact AP team: ap@company.com\n• Phone: 1-800-555-0123\n\nWould you like me to help you with anything else regarding payments?`
       } else if (content.toLowerCase().includes('overdue')) {
-        response = `⚠️ **Overdue Invoices Report**\n\n**Total Overdue:** $158,900\n**Invoices:** 25\n\n**High Priority (>$10,000):**\n\n🔴 **INV-9835** - FastShip LLC\n   • Amount: $12,400\n   • Due: Apr 10 (17 days overdue)\n   • Contact: John Smith\n   • Last Contact: Apr 12\n   • Action: Escalate to collections\n\n🔴 **INV-9842** - TechStart Inc\n   • Amount: $18,200\n   • Due: Apr 15 (12 days overdue)\n   • Contact: Sarah Johnson\n   • Last Contact: Apr 14\n   • Action: Send final notice\n\n🔴 **INV-9828** - Metro Systems\n   • Amount: $28,500\n   • Due: Apr 5 (22 days overdue)\n   • Contact: Mike Brown\n   • Last Contact: Apr 8\n   • Action: Payment plan discussion\n\n**Recommended Actions:**\n1. Call FastShip LLC today\n2. Send final notice to TechStart\n3. Schedule call with Metro Systems\n\nWould you like me to draft collection emails?`
+        response = `⚠️ **Overdue Invoices Report**\n\n**Total Overdue:** $158,900\n**Invoices:** 25\n\n**High Priority (>$10,000):**\n\n🔴 **INV-9835** - FastShip LLC\n   • Amount: $12,400\n   • Due: Apr 10 (17 days overdue)\n   • Contact: John Smith\n   • Last Contact: Apr 12\n   • Action: Escalate to collections\n\n🔴 **INV-9842** - TechStart Inc\n   • Amount: $18,200\n   • Due: Apr 15 (12 days overdue)\n   • Contact: Sarah Johnson\n   • Last Contact: Apr 14\n   • Action: Send final notice\n\n🔴 **INV-9828** - Metro Systems\n   • Amount: $28,500\n   • Due: Apr 5 (22 days overdue)\n   • Contact: Mike Brown\n   • Last Contact: Apr 8\n   • Action: Payment plan discussion\n\n**💡 Need to pay an invoice?**\n👉 **[Go to Invoice & Payments Page](/home/finance/invoices)** to process payments.\n\n**Recommended Actions:**\n1. Call FastShip LLC today\n2. Send final notice to TechStart\n3. Schedule call with Metro Systems\n\nWould you like me to draft collection emails?`
       } else if (content.toLowerCase().includes('payment') && content.toLowerCase().includes('process')) {
         response = `📋 **Pending Payments to Process**\n\n**Accounts Payable Queue:**\n\n**Due Today (3):**\n• Vendor: TechParts Inc - $24,500\n• Vendor: Global Supply - $18,200\n• Vendor: FastFreight - $8,400\n**Total: $51,100**\n\n**Due This Week (8):**\n• Total Amount: $142,800\n• Vendors: 8\n\n**Payment Methods:**\n💳 ACH Transfer: $98,400 (5 payments)\n🏦 Wire Transfer: $44,400 (3 payments)\n\n**Cash Available:** $285,000\n**After Payments:** $233,900\n\n**Approval Status:**\n✅ Approved: 6 payments\n⏳ Pending Approval: 2 payments\n   • PR-8451: $12,500 (needs CFO)\n   • PR-8448: $15,800 (needs VP)\n\nWould you like me to process the approved payments?`
       } else if (content.toLowerCase().includes('revenue') || content.toLowerCase().includes('expense')) {

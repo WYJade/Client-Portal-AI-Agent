@@ -181,15 +181,27 @@ export default function AgentChatLayout({
           className="flex-1 overflow-y-auto"
           style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.1) transparent' }}
         >
-          {/* Stats Panel */}
-          <div className="bg-gray-900 border-b border-gray-800">
+          {/* Stats Panel - Dashboard Section */}
+          <div className="bg-gray-900 border-b border-gray-700">
             <div className="px-6 py-5">
               {statsPanel}
             </div>
           </div>
 
+          {/* Visual Separator between Dashboard and Chat */}
+          <div className="relative">
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
+            <div className="flex items-center justify-center py-3 bg-gray-950">
+              <div className="flex items-center gap-3">
+                <div className="h-px w-12 bg-gradient-to-r from-transparent to-gray-700"></div>
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Chat</span>
+                <div className="h-px w-12 bg-gradient-to-l from-transparent to-gray-700"></div>
+              </div>
+            </div>
+          </div>
+
           {/* Chat Content Area */}
-          <div className="px-6 py-6">
+          <div className="px-6 py-4 bg-gray-950">
             {/* Welcome Message - Simple and friendly */}
             <div className="mb-6">
               <h2 className="text-xl font-semibold text-gray-100 mb-2">

@@ -70,6 +70,7 @@ export const aiAgentGroups: AIAgentGroup[] = [
     agents: [
       { id: 'customer-agent', name: 'Customer Agent', description: 'Assist customers with inquiries and support' },
       { id: 'sales-assistant', name: 'Sales Assistant', description: 'Help with sales-related questions and orders' },
+      { id: 'quote-agent', name: 'Quote Agent', description: 'Generate and manage customer quotes' },
     ],
   },
   {
@@ -88,6 +89,8 @@ export const aiAgentGroups: AIAgentGroup[] = [
       { id: 'dispatch-coordinator', name: 'Dispatch Coordinator', description: 'Coordinate dispatch and delivery operations' },
       { id: 'shipment-tracker', name: 'Shipment Tracker', description: 'Track shipments and provide status updates' },
       { id: 'warehouse-operator-agent', name: 'Warehouse Operator Agent', description: 'Assist with warehouse operations' },
+      { id: 'small-parcel-agent', name: 'Small Parcel Agent', description: 'Manage small parcel shipments and tracking' },
+      { id: 'ltl-agent', name: 'LTL Agent', description: 'Handle less-than-truckload freight operations' },
     ],
   },
   {

@@ -10,6 +10,9 @@ import ProcurementCopilotPage from './ProcurementCopilotPage'
 import InventoryAdvisorPage from './InventoryAdvisorPage'
 import FinanceSpecialistPage from './FinanceSpecialistPage'
 import ExceptionHandlerPage from './ExceptionHandlerPage'
+import QuoteAgentPage from './QuoteAgentPage'
+import SmallParcelAgentPage from './SmallParcelAgentPage'
+import LTLAgentPage from './LTLAgentPage'
 
 interface AgentChatContext {
   selectedAgentId: string
@@ -27,6 +30,9 @@ const agentComponents: Record<string, React.ComponentType> = {
   'inventory-advisor': InventoryAdvisorPage,
   'finance-specialist': FinanceSpecialistPage,
   'exception-handler': ExceptionHandlerPage,
+  'quote-agent': QuoteAgentPage,
+  'small-parcel-agent': SmallParcelAgentPage,
+  'ltl-agent': LTLAgentPage,
 }
 
 export default function AgentChat() {
