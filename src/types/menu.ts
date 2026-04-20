@@ -22,5 +22,6 @@ export interface AIAgent {
 export interface AIAgentGroup {
   id: string
   label: string
+  icon?: string
   agents: AIAgent[]
 }

@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import MainSidebar from './MainSidebar'
 import SubSidebar from './SubSidebar'
 import TopBar from './TopBar'
 import { homeMenuItems, aiAgentGroups, aiAgents } from '../../data/menuConfig'
 
 export default function Layout() {
-  const location = useLocation()
   const [activeModule, setActiveModule] = useState<'home' | 'agents' | 'favorites'>('agents')
   const [selectedAgentId, setSelectedAgentId] = useState('customer-agent')
 

@@ -66,6 +66,7 @@ export const aiAgentGroups: AIAgentGroup[] = [
   {
     id: 'customer-service',
     label: 'Customer Service',
+    icon: 'Headphones',
     agents: [
       { id: 'customer-agent', name: 'Customer Agent', description: 'Assist customers with inquiries and support' },
       { id: 'sales-assistant', name: 'Sales Assistant', description: 'Help with sales-related questions and orders' },
@@ -74,6 +75,7 @@ export const aiAgentGroups: AIAgentGroup[] = [
   {
     id: 'supplier-collaboration',
     label: 'Supplier Collaboration',
+    icon: 'Handshake',
     agents: [
       { id: 'supplier-assistant', name: 'Supplier Assistant', description: 'Manage supplier communications and collaboration' },
     ],
@@ -81,6 +83,7 @@ export const aiAgentGroups: AIAgentGroup[] = [
   {
     id: 'logistics-operations',
     label: 'Logistics Operations',
+    icon: 'Truck',
     agents: [
       { id: 'dispatch-coordinator', name: 'Dispatch Coordinator', description: 'Coordinate dispatch and delivery operations' },
       { id: 'shipment-tracker', name: 'Shipment Tracker', description: 'Track shipments and provide status updates' },
@@ -90,6 +93,7 @@ export const aiAgentGroups: AIAgentGroup[] = [
   {
     id: 'procurement-inventory',
     label: 'Procurement & Inventory',
+    icon: 'ShoppingBag',
     agents: [
       { id: 'procurement-copilot', name: 'Procurement Copilot', description: 'Assist with procurement processes' },
       { id: 'inventory-advisor', name: 'Inventory Advisor', description: 'Provide inventory management advice' },
@@ -98,6 +102,7 @@ export const aiAgentGroups: AIAgentGroup[] = [
   {
     id: 'support-assurance',
     label: 'Support & Assurance',
+    icon: 'Shield',
     agents: [
       { id: 'finance-specialist', name: 'Finance Specialist', description: 'Handle finance-related inquiries' },
       { id: 'exception-handler', name: 'Exception Handler', description: 'Manage exceptions and resolve issues' },

@@ -1,6 +1,23 @@
 import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { ChevronDown, ChevronRight, LayoutDashboard, ShoppingCart, FileText, Clipboard, PackageCheck, Package, PanelLeftClose, Circle, LucideIcon } from 'lucide-react'
+import { 
+  ChevronDown, 
+  ChevronRight, 
+  LayoutDashboard, 
+  ShoppingCart, 
+  FileText, 
+  Clipboard, 
+  PackageCheck, 
+  Package, 
+  PanelLeftClose,
+  Headphones,
+  Users,
+  Truck,
+  ShoppingBag,
+  Shield,
+  Bot,
+  LucideIcon 
+} from 'lucide-react'
 import { MenuItem, AIAgentGroup } from '../../types/menu'
 
 const iconMap: Record<string, LucideIcon> = {
@@ -10,6 +27,11 @@ const iconMap: Record<string, LucideIcon> = {
   Clipboard,
   PackageCheck,
   Package,
+  Headphones,
+  Handshake: Users,
+  Truck,
+  ShoppingBag,
+  Shield,
 }
 
 interface SubSidebarProps {
@@ -64,32 +86,54 @@ export default function SubSidebar({ title, menuItems, agentGroups, selectedAgen
   const renderAgentGroups = () => {
     return agentGroups?.map((group) => {
       const isExpanded = expandedItems.has(group.id)
+      const Icon = group.icon ? iconMap[group.icon] : null
+      const hasSelectedAgent = group.agents.some(agent => agent.id === selectedAgentId)
+      
       return (
-        <div key={group.id}>
+        <div key={group.id} className="mb-1">
+          {/* Group Header */}
           <button
             onClick={() => toggleExpand(group.id)}
-            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:bg-gray-800 rounded-lg transition-colors"
+            className={`w-full flex items-center gap-2.5 px-3 py-2.5 text-sm rounded-lg transition-all ${
+              hasSelectedAgent && !isExpanded 
+                ? 'bg-purple-600/10 text-purple-400' 
+                : 'text-gray-200 hover:bg-gray-800'
+            }`}
           >
-            <Circle size={8} className="text-gray-500" fill="currentColor" />
+            {Icon && (
+              <div className={`p-1 rounded ${hasSelectedAgent ? 'bg-purple-600/20 text-purple-400' : 'bg-gray-800 text-gray-400'}`}>
+                <Icon size={14} />
+              </div>
+            )}
             <span className="flex-1 text-left font-medium">{group.label}</span>
-            {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+            <ChevronDown 
+              size={14} 
+              className={`text-gray-500 transition-transform duration-200 ${isExpanded ? '' : '-rotate-90'}`}
+            />
           </button>
-          {isExpanded && (
-            <div className="ml-4">
-              {group.agents.map((agent) => (
-                <button
-                  key={agent.id}
-                  onClick={() => onAgentSelect?.(agent.id)}
-                  className={`w-full flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors ${
-                    selectedAgentId === agent.id ? 'bg-purple-600/20 text-purple-400' : 'text-gray-400 hover:bg-gray-800'
-                  }`}
-                >
-                  <Circle size={6} className="text-gray-600" />
-                  <span className="flex-1 text-left">{agent.name}</span>
-                </button>
-              ))}
+          
+          {/* Agent List */}
+          <div className={`overflow-hidden transition-all duration-200 ${isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+            <div className="ml-3 pl-3 border-l border-gray-800 mt-1 space-y-0.5">
+              {group.agents.map((agent) => {
+                const isSelected = selectedAgentId === agent.id
+                return (
+                  <button
+                    key={agent.id}
+                    onClick={() => onAgentSelect?.(agent.id)}
+                    className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg transition-all ${
+                      isSelected 
+                        ? 'bg-purple-600 text-white shadow-lg shadow-purple-600/20' 
+                        : 'text-gray-400 hover:bg-gray-800 hover:text-gray-200'
+                    }`}
+                  >
+                    <Bot size={14} className={isSelected ? 'text-white' : 'text-gray-500'} />
+                    <span className="flex-1 text-left">{agent.name}</span>
+                  </button>
+                )
+              })}
             </div>
-          )}
+          </div>
         </div>
       )
     })
@@ -101,7 +145,7 @@ export default function SubSidebar({ title, menuItems, agentGroups, selectedAgen
         <span className="font-medium text-gray-100">{title}</span>
         <PanelLeftClose size={18} className="text-gray-500 cursor-pointer hover:text-gray-300" />
       </div>
-      <div className="flex-1 overflow-y-auto scrollbar-thin p-2">
+      <div className="flex-1 overflow-y-auto p-2" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.1) transparent' }}>
         {menuItems && menuItems.map((item) => renderMenuItem(item))}
         {agentGroups && renderAgentGroups()}
       </div>
