@@ -191,10 +191,24 @@ export default function AgentChatLayout({
         >
           {/* Welcome Message Section - At TOP */}
           <div className="px-6 py-5 bg-gray-950">
-            <h2 className="text-xl font-semibold text-gray-100 mb-2">
-              Hi, I'm your {agentName}
-            </h2>
-            <p className="text-gray-400 leading-relaxed">{welcomeMessage}</p>
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <h2 className="text-xl font-semibold text-gray-100 mb-2">
+                  Hi, I'm your {agentName}
+                </h2>
+                <p className="text-gray-400 leading-relaxed">{welcomeMessage}</p>
+              </div>
+              {/* Toggle right panel button - show when panel is closed and there are messages */}
+              {!isRightPanelOpen && (messages.length > 0 || chartPanel) && (
+                <button
+                  onClick={() => setIsRightPanelOpen(true)}
+                  className="ml-4 p-2.5 text-gray-400 hover:text-purple-400 hover:bg-gray-800 rounded-xl transition-colors border border-gray-700"
+                  title="Show quick actions"
+                >
+                  <PanelRight size={20} />
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Stats Panel - Dashboard Section - BELOW welcome message */}
@@ -261,33 +275,22 @@ export default function AgentChatLayout({
         {/* Input Area - Fixed at bottom, full width */}
         <div className="bg-gray-900 border-t border-gray-800 px-6 py-4 shrink-0">
           {/* Input Field - Full width */}
-          <div className="relative flex items-center gap-2">
+          <div className="relative flex items-center">
             <input
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder={`Ask ${agentName} anything... Press Enter to send`}
-              className="flex-1 px-5 py-3.5 pr-14 bg-gray-800 border border-gray-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-200 placeholder-gray-500 transition-all text-sm"
+              className="w-full px-5 py-3.5 pr-14 bg-gray-800 border border-gray-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-200 placeholder-gray-500 transition-all text-sm"
             />
             <button
               onClick={handleSend}
               disabled={!inputValue.trim()}
-              className="absolute right-14 p-2.5 bg-purple-600 text-white rounded-xl hover:bg-purple-500 disabled:opacity-40 disabled:hover:bg-purple-600 transition-all"
-              style={{ right: !isRightPanelOpen && (messages.length > 0 || chartPanel) ? '56px' : '8px' }}
+              className="absolute right-2 p-2.5 bg-purple-600 text-white rounded-xl hover:bg-purple-500 disabled:opacity-40 disabled:hover:bg-purple-600 transition-all"
             >
               <Send size={18} />
             </button>
-            {/* Toggle right panel button - only show when panel is closed and there are messages */}
-            {!isRightPanelOpen && (messages.length > 0 || chartPanel) && (
-              <button
-                onClick={() => setIsRightPanelOpen(true)}
-                className="p-3 text-gray-400 hover:text-purple-400 hover:bg-gray-800 rounded-xl transition-colors border border-gray-700"
-                title="Show quick actions"
-              >
-                <PanelRight size={20} />
-              </button>
-            )}
           </div>
         </div>
       </div>
@@ -299,9 +302,8 @@ export default function AgentChatLayout({
             chartPanel && isChartExpanded ? 'w-[550px]' : 'w-[320px]'
           }`}
         >
-          {/* Panel Header with close button - Always visible at top right */}
-          <div className="px-4 py-3 border-b border-gray-800 flex items-center justify-between shrink-0">
-            <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Quick actions</span>
+          {/* Panel Header - Only close button at top right */}
+          <div className="px-4 py-3 border-b border-gray-800 flex items-center justify-end shrink-0">
             <button
               onClick={() => setIsRightPanelOpen(false)}
               className="p-1.5 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-colors"
