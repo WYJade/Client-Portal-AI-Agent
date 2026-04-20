@@ -5,6 +5,7 @@ import AgentChatLayout, { Message } from '../../components/agent/AgentChatLayout
 import StatCard from '../../components/agent/StatCard'
 import DataTable from '../../components/agent/DataTable'
 import StatusBadge from '../../components/agent/StatusBadge'
+import SectionHeader from '../../components/agent/SectionHeader'
 
 const inventoryTrend = [
   { week: 'W1', value: 2.4, turnover: 4.2 },
@@ -189,7 +190,7 @@ export default function InventoryAdvisorPage() {
         />
       </div>
       <div className="mt-4">
-        <h4 className="text-sm font-medium text-gray-700 mb-2">Stock Alerts</h4>
+        <SectionHeader title="Stock Alerts" linkText="Inventory Activity" linkPath="/home/inventory/activity" />
         <DataTable columns={columns} data={stockAlerts} maxRows={4} />
       </div>
     </div>

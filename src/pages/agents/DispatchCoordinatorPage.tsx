@@ -5,6 +5,7 @@ import AgentChatLayout, { Message } from '../../components/agent/AgentChatLayout
 import StatCard from '../../components/agent/StatCard'
 import DataTable from '../../components/agent/DataTable'
 import StatusBadge from '../../components/agent/StatusBadge'
+import SectionHeader from '../../components/agent/SectionHeader'
 
 const dispatchVolume = [
   { hour: '6AM', dispatched: 12, delivered: 8 },
@@ -164,7 +165,7 @@ export default function DispatchCoordinatorPage() {
         />
       </div>
       <div className="mt-4">
-        <h4 className="text-sm font-medium text-gray-700 mb-2">Active Dispatches</h4>
+        <SectionHeader title="Active Dispatches" linkText="OTIF Dashboard" linkPath="/home/dashboards/otif" />
         <DataTable columns={columns} data={activeDispatches} maxRows={4} />
       </div>
     </div>

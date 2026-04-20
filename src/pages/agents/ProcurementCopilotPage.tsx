@@ -5,6 +5,7 @@ import AgentChatLayout, { Message } from '../../components/agent/AgentChatLayout
 import StatCard from '../../components/agent/StatCard'
 import DataTable from '../../components/agent/DataTable'
 import StatusBadge from '../../components/agent/StatusBadge'
+import SectionHeader from '../../components/agent/SectionHeader'
 
 const spendTrend = [
   { month: 'Jan', spend: 245000, budget: 250000 },
@@ -181,7 +182,7 @@ export default function ProcurementCopilotPage() {
         />
       </div>
       <div className="mt-4">
-        <h4 className="text-sm font-medium text-gray-700 mb-2">Pending Requests</h4>
+        <SectionHeader title="Pending Requests" linkText="Purchase Request" linkPath="/home/purchase/request" />
         <DataTable columns={columns} data={pendingApprovals} maxRows={4} />
       </div>
     </div>

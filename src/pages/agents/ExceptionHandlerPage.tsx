@@ -5,6 +5,7 @@ import AgentChatLayout, { Message } from '../../components/agent/AgentChatLayout
 import StatCard from '../../components/agent/StatCard'
 import DataTable from '../../components/agent/DataTable'
 import StatusBadge from '../../components/agent/StatusBadge'
+import SectionHeader from '../../components/agent/SectionHeader'
 
 const exceptionTrend = [
   { day: 'Mon', raised: 12, resolved: 10 },
@@ -202,7 +203,7 @@ export default function ExceptionHandlerPage() {
         />
       </div>
       <div className="mt-4">
-        <h4 className="text-sm font-medium text-gray-700 mb-2">Recent Exceptions</h4>
+        <SectionHeader title="Recent Exceptions" linkText="Ticket Insights" linkPath="/home/dashboards/ticket-insights" />
         <DataTable columns={columns} data={activeExceptions} maxRows={4} />
       </div>
     </div>

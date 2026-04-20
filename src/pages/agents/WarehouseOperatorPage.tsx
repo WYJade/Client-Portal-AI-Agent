@@ -5,6 +5,7 @@ import AgentChatLayout, { Message } from '../../components/agent/AgentChatLayout
 import StatCard from '../../components/agent/StatCard'
 import DataTable from '../../components/agent/DataTable'
 import StatusBadge from '../../components/agent/StatusBadge'
+import SectionHeader from '../../components/agent/SectionHeader'
 
 const zoneUtilization = [
   { zone: 'Zone A', utilization: 85, capacity: 100 },
@@ -160,7 +161,7 @@ export default function WarehouseOperatorPage() {
         />
       </div>
       <div className="mt-4">
-        <h4 className="text-sm font-medium text-gray-700 mb-2">Active Tasks</h4>
+        <SectionHeader title="Active Tasks" linkText="Inventory Activity" linkPath="/home/inventory/activity" />
         <DataTable columns={columns} data={recentTasks} maxRows={4} />
       </div>
     </div>

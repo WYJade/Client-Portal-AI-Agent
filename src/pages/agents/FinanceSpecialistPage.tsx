@@ -5,6 +5,7 @@ import AgentChatLayout, { Message } from '../../components/agent/AgentChatLayout
 import StatCard from '../../components/agent/StatCard'
 import DataTable from '../../components/agent/DataTable'
 import StatusBadge from '../../components/agent/StatusBadge'
+import SectionHeader from '../../components/agent/SectionHeader'
 
 const cashFlowData = [
   { month: 'Jan', inflow: 520, outflow: 480 },
@@ -197,7 +198,7 @@ export default function FinanceSpecialistPage() {
         />
       </div>
       <div className="mt-4">
-        <h4 className="text-sm font-medium text-gray-700 mb-2">Pending Invoices</h4>
+        <SectionHeader title="Pending Invoices" linkText="KPI Dashboard" linkPath="/home/dashboards/kpi" />
         <DataTable columns={columns} data={pendingInvoices} maxRows={4} />
       </div>
     </div>

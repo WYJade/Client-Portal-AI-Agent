@@ -5,6 +5,7 @@ import AgentChatLayout, { Message } from '../../components/agent/AgentChatLayout
 import StatCard from '../../components/agent/StatCard'
 import DataTable from '../../components/agent/DataTable'
 import StatusBadge from '../../components/agent/StatusBadge'
+import SectionHeader from '../../components/agent/SectionHeader'
 
 const supplierPerformance = [
   { name: 'Supplier A', onTime: 95, quality: 98 },
@@ -158,7 +159,7 @@ export default function SupplierAssistantPage() {
         />
       </div>
       <div className="mt-4">
-        <h4 className="text-sm font-medium text-gray-700 mb-2">Recent Purchase Orders</h4>
+        <SectionHeader title="Recent Purchase Orders" linkText="Purchase Orders" linkPath="/home/purchase/order" />
         <DataTable columns={columns} data={pendingPOs} maxRows={4} />
       </div>
     </div>

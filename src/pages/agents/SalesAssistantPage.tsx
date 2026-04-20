@@ -5,6 +5,7 @@ import AgentChatLayout, { Message } from '../../components/agent/AgentChatLayout
 import StatCard from '../../components/agent/StatCard'
 import DataTable from '../../components/agent/DataTable'
 import StatusBadge from '../../components/agent/StatusBadge'
+import SectionHeader from '../../components/agent/SectionHeader'
 
 const salesData = [
   { month: 'Jan', sales: 4200, target: 4000 },
@@ -193,7 +194,7 @@ export default function SalesAssistantPage() {
         />
       </div>
       <div className="mt-4">
-        <h4 className="text-sm font-medium text-gray-700 mb-2">Recent Orders</h4>
+        <SectionHeader title="Recent Orders" linkText="Sales Orders" linkPath="/home/sales/wholesale" />
         <DataTable columns={columns} data={recentOrders} maxRows={4} />
       </div>
     </div>

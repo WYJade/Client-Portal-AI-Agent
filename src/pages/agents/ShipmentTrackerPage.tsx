@@ -5,6 +5,7 @@ import AgentChatLayout, { Message } from '../../components/agent/AgentChatLayout
 import StatCard from '../../components/agent/StatCard'
 import DataTable from '../../components/agent/DataTable'
 import StatusBadge from '../../components/agent/StatusBadge'
+import SectionHeader from '../../components/agent/SectionHeader'
 
 const deliveryTrend = [
   { date: 'Apr 11', onTime: 94, delayed: 6 },
@@ -163,7 +164,7 @@ export default function ShipmentTrackerPage() {
         />
       </div>
       <div className="mt-4">
-        <h4 className="text-sm font-medium text-gray-700 mb-2">Recent Shipments</h4>
+        <SectionHeader title="Recent Shipments" linkText="Schedule Summary" linkPath="/home/inbound/schedule-summary" />
         <DataTable columns={columns} data={activeShipments} maxRows={4} />
       </div>
     </div>
